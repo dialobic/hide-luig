@@ -1,0 +1,21 @@
+# Godot-specific ignores
+.import/
+.export/
+*.translation
+
+# Mono / C#
+.mono/
+data_*/
+*.csproj
+*.sln
+
+# Godot 4
+.godot/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+

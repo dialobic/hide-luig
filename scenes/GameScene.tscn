@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://836285qqswq0"]
+
+[ext_resource type="Script" uid="uid://cxspd4o5fa0sm" path="res://scenes/GameScene.gd" id="1_vh257"]
+[ext_resource type="AudioStream" uid="uid://di8oyh1iqr7ws" path="res://assets/sounds/click.ogg" id="2_cxv17"]
+[ext_resource type="AudioStream" uid="uid://csjtopfglhg41" path="res://assets/sounds/ambient.ogg" id="2_pynjx"]
+[ext_resource type="Script" uid="uid://b74dw33n5m4h3" path="res://scenes/SoundPool.gd" id="2_yrli1"]
+[ext_resource type="AudioStream" uid="uid://bkwrbqn35nm4x" path="res://assets/sounds/bonus.ogg" id="3_18ig4"]
+[ext_resource type="AudioStream" uid="uid://do8vt6std55a0" path="res://assets/sounds/done.ogg" id="4_xs4ih"]
+[ext_resource type="AudioStream" uid="uid://5grpuvl8gfip" path="res://assets/sounds/success.ogg" id="5_6ytau"]
+[ext_resource type="AudioStream" uid="uid://ckyf1u1d5bu8b" path="res://assets/sounds/take.ogg" id="6_vijgj"]
+[ext_resource type="AudioStream" uid="uid://bcrftm4ix6iea" path="res://assets/sounds/woosh.ogg" id="7_vijgj"]
+[ext_resource type="AudioStream" uid="uid://wl71doylbag1" path="res://assets/sounds/wrong.ogg" id="8_pynjx"]
+
+[node name="GameScene" type="Node2D"]
+script = ExtResource("1_vh257")
+
+[node name="RoomContainer" type="Node2D" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="BonusCounter" type="Label" parent="UI"]
+offset_left = 854.0
+offset_top = 10.0
+offset_right = 916.0
+offset_bottom = 33.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Bonus 0"
+
+[node name="ExitButton" type="Button" parent="UI"]
+offset_left = 12.0
+offset_top = 7.0
+offset_right = 53.0
+offset_bottom = 38.0
+text = "EXIT"
+
+[node name="InventoryContainer" type="Node2D" parent="UI"]
+
+[node name="SoundPool" type="Node2D" parent="."]
+script = ExtResource("2_yrli1")
+
+[node name="AmbientPlayer" type="AudioStreamPlayer" parent="SoundPool"]
+stream = ExtResource("2_pynjx")
+
+[node name="ClickPlayer" type="AudioStreamPlayer" parent="SoundPool"]
+stream = ExtResource("2_cxv17")
+
+[node name="BonusPlayer" type="AudioStreamPlayer" parent="SoundPool"]
+stream = ExtResource("3_18ig4")
+
+[node name="DonePlayer" type="AudioStreamPlayer" parent="SoundPool"]
+stream = ExtResource("4_xs4ih")
+
+[node name="SuccessPlayer" type="AudioStreamPlayer" parent="SoundPool"]
+stream = ExtResource("5_6ytau")
+
+[node name="TakePlayer" type="AudioStreamPlayer" parent="SoundPool"]
+stream = ExtResource("6_vijgj")
+
+[node name="WooshPlayer" type="AudioStreamPlayer" parent="SoundPool"]
+stream = ExtResource("7_vijgj")
+
+[node name="WrongPlayer" type="AudioStreamPlayer" parent="SoundPool"]
+stream = ExtResource("8_pynjx")
