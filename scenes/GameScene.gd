@@ -16,6 +16,9 @@ extends Node2D
 var current_room: Node = null
 var inventory_item_node: InventoryItem = null
 var inventory_background: Sprite2D = null
+var sparkle: Sprite2D = null
+var sparkle_timer: Timer = null
+var sparkle_target_index: int = 0
 
 func _ready() -> void:
 	var viewport_size = get_viewport().get_visible_rect().size
@@ -24,10 +27,66 @@ func _ready() -> void:
 	GameState.reset_level_state()
 	load_level_data()
 	setup_ui()
-	set_background_color()
 	load_room("001")
+	setup_sparkle_system()
 	
 	GameState.inventory_changed.connect(_on_inventory_changed)
+
+func setup_sparkle_system() -> void:
+	# Carica e crea lo sparkle
+	var sparkle_scene = preload("res://scenes/Sparkle.tscn")
+	sparkle = sparkle_scene.instantiate()
+	ui_layer.add_child(sparkle)
+	
+	# Crea il timer per lo sparkle
+	sparkle_timer = Timer.new()
+	sparkle_timer.wait_time = 3.0  # Ogni 3 secondi
+	sparkle_timer.autostart = true
+	sparkle_timer.timeout.connect(_on_sparkle_timer_timeout)
+	add_child(sparkle_timer)
+	
+	# Avvia subito il primo sparkle
+	call_deferred("_on_sparkle_timer_timeout")
+
+func _on_sparkle_timer_timeout() -> void:
+	# Ottieni TUTTI gli oggetti interattivi figli di RoomContainer
+	var all_objects = room_container.get_children()
+	
+	if all_objects.size() == 0:
+		return  # Nessuna stanza caricata
+	
+	# La stanza corrente è il primo (e unico) figlio di RoomContainer
+	var current_room = all_objects[0]
+	
+	# Ottieni tutti gli oggetti Area2D nella stanza
+	var interactive_objects = _find_all_interactive_objects(current_room)
+	
+	if interactive_objects.size() == 0:
+		return  # Nessun oggetto interattivo
+	
+	# Cicla all'oggetto successivo
+	sparkle_target_index = (sparkle_target_index + 1) % interactive_objects.size()
+	var target_object = interactive_objects[sparkle_target_index]
+	
+	# Posiziona lo sparkle sopra l'oggetto
+	var sparkle_position = target_object.global_position + Vector2(0, -9)
+	sparkle.appear_at(sparkle_position)
+
+func _find_all_interactive_objects(node: Node) -> Array:
+	var objects = []
+	
+	# Se questo nodo è un InteractiveObject (Area2D con setup method)
+	if node is Area2D and node.has_method("setup"):
+		# Controlla che non sia in fase di rimozione
+		var is_being_removed = node.get("is_being_removed")
+		if not is_being_removed or is_being_removed == false:
+			objects.append(node)
+	
+	# Cerca ricorsivamente in tutti i figli
+	for child in node.get_children():
+		objects.append_array(_find_all_interactive_objects(child))
+	
+	return objects
 
 func load_level_data() -> void:
 	var data = JSONLoader.load_level(GameState.current_level)
@@ -39,13 +98,6 @@ func load_level_data() -> void:
 	
 	if data.has("config"):
 		GameState.set_level_config(data.config)
-
-func set_background_color() -> void:
-	var data = JSONLoader.load_level(GameState.current_level)
-	if not data.is_empty() and data.has("config") and data.config.has("bg-color"):
-		var color_str = data.config["bg-color"]
-		var bg_color = Color(color_str)
-		RenderingServer.set_default_clear_color(bg_color)
 
 func setup_ui() -> void:
 	bonus_label.text = "Bonus: 0/%d" % GameState.win_bonus_count
@@ -103,6 +155,8 @@ func load_room(room_key: String) -> void:
 		room_data.oggetti = filtered_oggetti
 	
 	current_room.initialize(room_data, actual_key)
+	# Reset sparkle system per la nuova stanza
+	sparkle_target_index = 0
 
 func handle_win_room() -> void:
 	var bonus_collected = GameState.collected_bonuses.size()
