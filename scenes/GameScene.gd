@@ -9,13 +9,11 @@ extends Node2D
 @onready var click_player = $SoundPool/ClickPlayer
 @onready var bonus_player = $SoundPool/BonusPlayer
 @onready var done_player = $SoundPool/DonePlayer
-@onready var success_player = $SoundPool/SuccessPlayer
 @onready var take_player = $SoundPool/TakePlayer
 @onready var woosh_player = $SoundPool/WooshPlayer
 @onready var wrong_player = $SoundPool/WrongPlayer
 
 var current_room: Node = null
-var previous_room_key: String = ""
 var inventory_item_node: InventoryItem = null
 var inventory_background: Sprite2D = null
 
@@ -48,12 +46,6 @@ func set_background_color() -> void:
 		var color_str = data.config["bg-color"]
 		var bg_color = Color(color_str)
 		RenderingServer.set_default_clear_color(bg_color)
-	
-	if GameState.level_background_color != Color.TRANSPARENT:
-		call_deferred("_apply_background_color")
-
-func _apply_background_color() -> void:
-	RenderingServer.set_default_clear_color(GameState.level_background_color)
 
 func setup_ui() -> void:
 	bonus_label.text = "Bonus: 0/%d" % GameState.win_bonus_count
@@ -69,8 +61,10 @@ func load_room(room_key: String) -> void:
 	while actual_key in GameState.replaced_rooms:
 		actual_key = GameState.replaced_rooms[actual_key]
 	
-	if current_room:
-		previous_room_key = current_room.room_key
+	# Controlla se la stanza è "win"
+	if actual_key == "win":
+		handle_win_room()
+		return
 	
 	if current_room:
 		current_room.queue_free()
@@ -90,29 +84,32 @@ func load_room(room_key: String) -> void:
 	
 	var room_data = GameState.rooms_data.stanze[actual_key].duplicate(true)
 	
-	# Filtra gli oggetti: rimuovi bonus già raccolti E oggetti che sono nell'inventario
 	if room_data.has("oggetti"):
 		var oggetti = room_data.oggetti
 		var filtered_oggetti = []
 		for oggetto in oggetti:
-			# Controlla se è un bonus già raccolto
 			if oggetto.get("tipo") == "bonus":
 				var bonus_id = oggetto.get("item")
 				if bonus_id and GameState.collected_bonuses.has(bonus_id):
-					continue  # Salta questo bonus se già raccolto
+					continue
 			
-			# Controlla se è un oggetto "prendi" che è attualmente nell'inventario
 			if oggetto.get("tipo") == "prendi":
 				var item_id = oggetto.get("item")
 				if item_id and GameState.inventory_item == item_id.replace(".png", ""):
-					continue  # Salta questo oggetto se è nell'inventario
+					continue
 			
-			# Altrimenti, includi l'oggetto
 			filtered_oggetti.append(oggetto)
 		
 		room_data.oggetti = filtered_oggetti
 	
 	current_room.initialize(room_data, actual_key)
+
+func handle_win_room() -> void:
+	var bonus_collected = GameState.collected_bonuses.size()
+	GameState.save_level_progress(GameState.current_level, bonus_collected)
+	get_tree().change_scene_to_file("res://scenes/WinScene.tscn")
+	
+
 
 func handle_object_interaction(obj: Node) -> void:
 	click_player.pitch_scale = randf_range(0.95, 1.05)
@@ -219,8 +216,6 @@ func clear_inventory() -> void:
 		inventory_background = null
 
 func collect_bonus(bonus_id: String, bonus_obj: Node) -> void:
-	print("=== START COLLECT BONUS ===")
-	
 	if not bonus_id in GameState.collected_bonuses:
 		GameState.collected_bonuses.append(bonus_id)
 		GameState.bonus_collected.emit(bonus_id)
@@ -228,36 +223,16 @@ func collect_bonus(bonus_id: String, bonus_obj: Node) -> void:
 		bonus_player.play()
 		update_bonus_counter()
 		
-		# 1. Prendi informazioni dal bonus originale PRIMA di rimuoverlo
-		print("Getting bonus info before removal")
 		var bonus_sprite = bonus_obj.get_node("Sprite2D")
+		var bonus_texture = bonus_sprite.texture if bonus_sprite else null
+		var bonus_global_pos = bonus_sprite.global_position if bonus_sprite else bonus_obj.global_position
 		
-		if bonus_sprite:
-			print("Bonus sprite found")
-			var bonus_texture = bonus_sprite.texture
-			var bonus_global_pos = bonus_sprite.global_position
-			print("Texture: ", bonus_texture)
-			print("Position: ", bonus_global_pos)
-			
-			# 2. Rimuovi il bonus originale
-			print("Removing original bonus")
-			bonus_obj.queue_free()
-			
-			# 3. Crea l'animazione
-			if bonus_texture:
-				print("Creating animation with texture")
-				create_bonus_animation(bonus_texture, bonus_global_pos)
-			else:
-				print("ERROR: No texture found!")
-		else:
-			print("ERROR: No Sprite2D found in bonus object!")
-	else:
-		print("Bonus already collected")
-	
-	print("=== END COLLECT BONUS ===")
+		bonus_obj.queue_free()
+		
+		if bonus_texture:
+			create_bonus_animation(bonus_texture, bonus_global_pos)
 
 func create_bonus_animation(texture: Texture2D, position: Vector2) -> void:
-	# Versione SEMPLICISSIMA - solo per test
 	var anim_sprite = Sprite2D.new()
 	anim_sprite.texture = texture
 	anim_sprite.centered = true
@@ -265,15 +240,10 @@ func create_bonus_animation(texture: Texture2D, position: Vector2) -> void:
 	
 	add_child(anim_sprite)
 	
-	# movimento verticale e dissolvenza
 	var tween = create_tween()
 	tween.tween_property(anim_sprite, "position:y", anim_sprite.position.y - 80, 0.5)
 	tween.parallel().tween_property(anim_sprite, "modulate:a", 0.0, 0.5)
-	tween.tween_callback(func(): 
-		anim_sprite.queue_free()
-	)
-	
-	print("TEST: Basic animation started")
+	tween.tween_callback(anim_sprite.queue_free)
 
 func update_bonus_counter() -> void:
 	var count = GameState.collected_bonuses.size()

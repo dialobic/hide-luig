@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://da1k827gnvovs"]
+
+[ext_resource type="Script" uid="uid://ddtikr74k2qp1" path="res://scenes/LevelButton.gd" id="1_pyko2"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Button" type="Button" parent="."]
+offset_left = 448.0
+offset_top = 232.0
+offset_right = 507.0
+offset_bottom = 263.0
+text = "levello"
+script = ExtResource("1_pyko2")
+level_name = "level1"
+
+[node name="BonusLabel" type="Label" parent="Button"]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 5.0
+offset_right = 114.0
+offset_bottom = 28.0

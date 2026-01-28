@@ -1,13 +1,13 @@
-# scripts/JSONLoader.gd
-class_name JSONLoader
+# JSONLoader.gd
+#extends Node
 
-static func load_level(level_num: int) -> Dictionary:
-	var path = "res://levels/level%d/level%d.json" % [level_num, level_num]
-	
-	print("Loading JSON from: ", path)
+class_name JSONLoader  # Aggiungi questa riga in cima al file se vuoi usarlo come tipo
+
+static func load_level(level_name: String) -> Dictionary:
+	var path = "res://levels/%s/%s.json" % [level_name, level_name]
 	
 	if not FileAccess.file_exists(path):
-		printerr("File not found: ", path)
+		printerr("Level file not found: ", path)
 		return {}
 	
 	var file = FileAccess.open(path, FileAccess.READ)
@@ -17,65 +17,28 @@ static func load_level(level_num: int) -> Dictionary:
 	var json = JSON.new()
 	var error = json.parse(content)
 	
-	if error != OK:
+	if error == OK:
+		return json.data
+	else:
 		printerr("JSON Parse Error: ", json.get_error_message())
 		return {}
-	
-	print("JSON parsed successfully")
-	return json.data
 
-static func get_level_texture(level_num: int, filename: String) -> Texture2D:
-	var path = "res://levels/level%d/%s" % [level_num, filename]
-	
-	print("Looking for texture: ", path)
-	
+static func get_level_texture(level_name: String, texture_name: String) -> Texture2D:
+	# Prova prima con il percorso completo
+	var path = "res://levels/%s/%s" % [level_name, texture_name]
 	if ResourceLoader.exists(path):
-		var texture = load(path)
-		print("Texture found: ", filename)
-		return texture
+		return load(path)
 	
-	# Fallback: rimuovi .png se presente
-	var filename_no_ext = filename.replace(".png", "")
-	path = "res://levels/level%d/%s" % [level_num, filename_no_ext]
-	
+	# Prova senza estensione
+	var texture_name_no_ext = texture_name.replace(".png", "").replace(".jpg", "").replace(".webp", "")
+	path = "res://levels/%s/%s.png" % [level_name, texture_name_no_ext]
 	if ResourceLoader.exists(path):
-		var texture = load(path)
-		print("Texture found (without .png): ", filename_no_ext)
-		return texture
+		return load(path)
 	
-	printerr("Texture not found: ", filename)
-	return null
-
-static func get_level_sound(level_num: int, sound_name: String) -> AudioStream:
-	print("Loading sound: ", sound_name)
+	# Prova nella cartella assets generica come fallback
+	path = "res://assets/textures/%s" % texture_name
+	if ResourceLoader.exists(path):
+		return load(path)
 	
-	# Prova diverse estensioni e percorsi
-	var possible_paths = [
-		# Suoni specifici del livello
-		"res://levels/level%d/%s.ogg" % [level_num, sound_name],
-		"res://levels/level%d/%s.wav" % [level_num, sound_name],
-		"res://levels/level%d/%s.mp3" % [level_num, sound_name],
-		
-		# Suoni negli asset condivisi
-		"res://assets/sounds/%s.ogg" % sound_name,
-		"res://assets/sounds/%s.wav" % sound_name,
-		"res://assets/sounds/%s.mp3" % sound_name,
-		
-		# Prova anche senza estensione
-		"res://levels/level%d/%s" % [level_num, sound_name],
-		"res://assets/sounds/%s" % sound_name,
-	]
-	
-	for path in possible_paths:
-		if ResourceLoader.exists(path):
-			var stream = load(path)
-			
-			# Configura il stream se necessario
-			if stream is AudioStreamOggVorbis:
-				stream.loop = false
-			elif stream is AudioStreamWAV:
-				stream.loop_mode = AudioStreamWAV.LOOP_DISABLED
-			
-			return stream
-
+	printerr("Texture not found: ", texture_name, " for level: ", level_name)
 	return null

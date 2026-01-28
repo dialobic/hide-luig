@@ -43,7 +43,6 @@
             ]
         },
         "win": {
-            "suono": "music1",
             "oggetti": []
         },
         "002": {
@@ -76,7 +75,7 @@
                     ],
                     "target": "003",
                     "item": "carrot",
-                    "icona": "vuoto.png"
+                    "icona": "carrot.png"
                 },
                 {
                     "tipo": "prendi",
@@ -153,6 +152,15 @@
                     ],
                     "item": "bonus4",
                     "icona": "bonus.png"
+                },
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        49,
+                        -42
+                    ],
+                    "target": "win",
+                    "icona": "vuoto.png"
                 }
             ]
         }

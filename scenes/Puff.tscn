@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://cb5etmwaxh5do"]
+
+[ext_resource type="Texture2D" uid="uid://7wm8djolw03r" path="res://assets/textures/puff3.png" id="1_2usy8"]
+[ext_resource type="Texture2D" uid="uid://cguksshnq5w6p" path="res://assets/textures/puff5.png" id="2_dltwg"]
+[ext_resource type="Texture2D" uid="uid://15fb4cwwg0jg" path="res://assets/textures/puff7.png" id="3_6nso5"]
+[ext_resource type="Texture2D" uid="uid://cah0ckkpn5o6f" path="res://assets/textures/puff8.png" id="4_t3dwf"]
+[ext_resource type="Script" uid="uid://clhsfvn3ogamd" path="res://scenes/Puff.gd" id="5_dltwg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c7fp4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_2usy8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_dltwg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6nso5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_t3dwf")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Puff" type="AnimatedSprite2D"]
+self_modulate = Color(1, 1, 1, 0.29411766)
+sprite_frames = SubResource("SpriteFrames_c7fp4")
+autoplay = "default"
+script = ExtResource("5_dltwg")
