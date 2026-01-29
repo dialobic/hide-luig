@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnrndy8hplwb2"
-path="res://.godot/imported/freccia4.png-8236091e51235a496948b0fde05f1690.ctex"
+uid="uid://12asoifj25jn"
+path="res://.godot/imported/bonus1.png-c1ee4c766dd1eedb4e2f27ca2709466d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://levels/level1/freccia4.png"
-dest_files=["res://.godot/imported/freccia4.png-8236091e51235a496948b0fde05f1690.ctex"]
+source_file="res://assets/ui/bonus1.png"
+dest_files=["res://.godot/imported/bonus1.png-c1ee4c766dd1eedb4e2f27ca2709466d.ctex"]
 
 [params]
 

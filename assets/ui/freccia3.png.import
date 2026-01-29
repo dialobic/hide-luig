@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://broo8texnn8ua"
-path="res://.godot/imported/bonus3.png-7f4e54d2aa302da17e5a4aba089063cb.ctex"
+uid="uid://3bqdsu123t2a"
+path="res://.godot/imported/freccia3.png-76440dff7d5b4a40c2c79f5ecc58d4e5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/bonus3.png"
-dest_files=["res://.godot/imported/bonus3.png-7f4e54d2aa302da17e5a4aba089063cb.ctex"]
+source_file="res://assets/ui/freccia3.png"
+dest_files=["res://.godot/imported/freccia3.png-76440dff7d5b4a40c2c79f5ecc58d4e5.ctex"]
 
 [params]
 

@@ -4,7 +4,7 @@ extends Node2D
 @onready var winframes: AnimatedSprite2D = $WinFrames
 @onready var bonus_player: AudioStreamPlayer = $BonusPlayer
 @onready var bonus_label: Label = $BonusLabel
-@onready var continue_button: Button = $ContinueButton
+@onready var continue_button: TextureButton = $ContinueButton
 @onready var animation_timer: Timer = $AnimationTimer
 
 var total_bonus_collected: int = 0

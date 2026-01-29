@@ -3,13 +3,19 @@
 [ext_resource type="Theme" uid="uid://c6ys1va75bwsj" path="res://assets/ui/buttontheme.tres" id="1_10y3o"]
 [ext_resource type="Script" uid="uid://ddtikr74k2qp1" path="res://scenes/LevelButton.gd" id="1_pyko2"]
 [ext_resource type="Script" uid="uid://dhbftu6x0yu6l" path="res://scenes/LevelSelectScene.gd" id="1_yuna8"]
-[ext_resource type="Texture2D" uid="uid://mpylvgcc1ihq" path="res://assets/textures/bonus0.png" id="3_xsrx1"]
-[ext_resource type="Texture2D" uid="uid://12asoifj25jn" path="res://assets/textures/bonus1.png" id="4_k181o"]
-[ext_resource type="Texture2D" uid="uid://o65nvcrdn0gn" path="res://assets/textures/bonus2.png" id="5_yuna8"]
-[ext_resource type="Texture2D" uid="uid://broo8texnn8ua" path="res://assets/textures/bonus3.png" id="6_q6w2e"]
-[ext_resource type="Texture2D" uid="uid://elsrospfjhwe" path="res://assets/textures/bonus4.png" id="7_84p8m"]
-[ext_resource type="Texture2D" uid="uid://br2px038rl0qv" path="res://assets/textures/bonus5.png" id="8_xidab"]
+[ext_resource type="Texture2D" uid="uid://cj252cb8x73m0" path="res://assets/ui/frame720x540.png" id="2_m1pp7"]
+[ext_resource type="Texture2D" uid="uid://mpylvgcc1ihq" path="res://assets/ui/bonus0.png" id="3_xsrx1"]
+[ext_resource type="Texture2D" uid="uid://12asoifj25jn" path="res://assets/ui/bonus1.png" id="4_k181o"]
+[ext_resource type="Texture2D" uid="uid://bvhwj06ewkf5r" path="res://assets/ui/arrow.png" id="4_m1pp7"]
+[ext_resource type="Texture2D" uid="uid://o65nvcrdn0gn" path="res://assets/ui/bonus2.png" id="5_yuna8"]
+[ext_resource type="Texture2D" uid="uid://broo8texnn8ua" path="res://assets/ui/bonus3.png" id="6_q6w2e"]
+[ext_resource type="Texture2D" uid="uid://elsrospfjhwe" path="res://assets/ui/bonus4.png" id="7_84p8m"]
+[ext_resource type="Texture2D" uid="uid://br2px038rl0qv" path="res://assets/ui/bonus5.png" id="8_xidab"]
 [ext_resource type="Script" uid="uid://crx2hsfgis3hb" path="res://scenes/BonusCount.gd" id="9_k181o"]
+[ext_resource type="Shader" uid="uid://g0ajn2e2p8u5" path="res://scripts/shader.gdshader" id="13_1hdbp"]
+[ext_resource type="Script" uid="uid://cu3pqclnko6qh" path="res://scenes/palette_button.gd" id="13_36bka"]
+[ext_resource type="Script" uid="uid://b1bq2tnfavoke" path="res://scenes/ColorRect.gd" id="14_36bka"]
+[ext_resource type="AudioStream" uid="uid://csjtopfglhg41" path="res://assets/sounds/ambient.ogg" id="15_36bka"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1hdbp"]
 animations = [{
@@ -62,53 +68,97 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Node2D" type="Control" unique_id=293914183]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m1pp7"]
+shader = ExtResource("13_1hdbp")
+shader_parameter/tolerance = 0.2000000095
+shader_parameter/color_bg = Color(0.43739998, 0.74789995, 0.81, 1)
+shader_parameter/color_fg = Color(0.9522638, 0.7172818, 0, 1)
+
+[node name="LevelSelect" type="Control" unique_id=293914183]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_yuna8")
 
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=198238837]
+position = Vector2(576, 310)
+texture = ExtResource("2_m1pp7")
+
 [node name="Button" type="Button" parent="." unique_id=309802613]
 layout_mode = 0
-offset_left = 208.0
-offset_top = 138.0
-offset_right = 334.0
-offset_bottom = 183.0
+offset_left = 461.0
+offset_top = 267.0
+offset_right = 655.0
+offset_bottom = 339.0
 theme = ExtResource("1_10y3o")
 theme_override_font_sizes/font_size = 36
-text = "Level 1"
+text = "play"
+icon = ExtResource("4_m1pp7")
 flat = true
+alignment = 0
 script = ExtResource("1_pyko2")
 level_name = "level1"
 
-[node name="BonusCount" type="AnimatedSprite2D" parent="Button" unique_id=577350737 node_paths=PackedStringArray("next_level_button")]
-position = Vector2(223, 19)
+[node name="BonusCount" type="AnimatedSprite2D" parent="Button" unique_id=577350737]
+position = Vector2(128, 74)
 sprite_frames = SubResource("SpriteFrames_1hdbp")
-animation = &"0"
+animation = &"5"
 autoplay = "0"
 script = ExtResource("9_k181o")
 level_name = "level1"
-next_level_button = NodePath("../../Button2")
 
-[node name="Button2" type="Button" parent="." unique_id=1535835109]
+[node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=1817639266]
 layout_mode = 0
-offset_left = 206.0
-offset_top = 218.0
-offset_right = 332.0
-offset_bottom = 263.0
-theme = ExtResource("1_10y3o")
-theme_override_font_sizes/font_size = 36
-disabled = true
-text = "Level 1"
-flat = true
-script = ExtResource("1_pyko2")
-level_name = "level1"
-color_to_bg = Color(0.8392079, 0.49973595, 0.37465858, 1)
-color_to_fg = Color(0.8207185, 0.7742235, 7.70092e-07, 1)
+offset_left = 223.0
+offset_top = 588.0
+offset_right = 926.0
+offset_bottom = 634.0
+theme_override_constants/separation = 33
+alignment = 1
 
-[node name="BonusCount" type="AnimatedSprite2D" parent="Button2" unique_id=1686629238]
-position = Vector2(223, 19)
-sprite_frames = SubResource("SpriteFrames_1hdbp")
-animation = &"0"
-autoplay = "0"
-script = ExtResource("9_k181o")
-level_name = "level1"
+[node name="PaletteButton1" type="Button" parent="VBoxContainer" unique_id=1985349323]
+layout_mode = 2
+theme = ExtResource("1_10y3o")
+text = "palette 1"
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+script = ExtResource("13_36bka")
+color_to_bg = Color(1, 0.8, 0.6, 1)
+color_to_fg = Color(0.45148325, 0.8962961, 0.871624, 1)
+
+[node name="PaletteButton2" type="Button" parent="VBoxContainer" unique_id=96274135]
+layout_mode = 2
+theme = ExtResource("1_10y3o")
+text = "palette 2"
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+script = ExtResource("13_36bka")
+color_to_bg = Color(0.5538167, 0.79853845, 0.4924801, 1)
+
+[node name="PaletteButton3" type="Button" parent="VBoxContainer" unique_id=1867729738]
+layout_mode = 2
+theme = ExtResource("1_10y3o")
+text = "palette 3"
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+script = ExtResource("13_36bka")
+color_to_bg = Color(0.4, 0.8, 0.8, 1)
+color_to_fg = Color(1, 0.8, 0, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=337914592]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=5577125]
+material = SubResource("ShaderMaterial_m1pp7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("14_36bka")
+
+[node name="AmbientPlayer" type="AudioStreamPlayer" parent="." unique_id=1897757020]
+stream = ExtResource("15_36bka")
+autoplay = true

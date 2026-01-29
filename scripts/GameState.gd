@@ -11,13 +11,13 @@ var collected_bonuses: Array = []
 var inventory_item: String = ""
 
 # === CONFIG ===
-var color_bg : Color = Color("70cf9eff")
-var color_fg : Color = Color("e98b00ff")
+var color_bg : Color = Color("66ccccff")
+var color_fg : Color = Color("ffcc00ff")
 var win_bonus_count: int = 5
 
 # === UI POSITIONS ===
 var inventory_x: int = 1020
-var inventory_y: int = 105
+var inventory_y: int = 150
 
 # === PROGRESS ===
 var level_progress: Dictionary = {}  # Formato: { "level_name": bonus_collected }

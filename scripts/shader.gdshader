@@ -13,7 +13,7 @@ void fragment() {
 
     // 1. Definiamo i colori sorgente (Hardcoded per velocità)
     vec3 teal_originale = vec3(0.47, 0.79, 0.77);   // #78c9c4
-    vec3 yellow_originale = vec3(0.95, 0.80, 0.0);  // #f2cc00
+    vec3 yellow_originale = vec3(1.0, 0.80, 0.0);  // #ffcc00
     vec3 bianco = vec3(1.0, 1.0, 1.0);              // #ffffff
 
     // 2. Logica di sostituzione rapida

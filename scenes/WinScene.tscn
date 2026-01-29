@@ -2,7 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://dd88vmq0od47r" path="res://assets/textures/win0.png" id="1_gem6r"]
 [ext_resource type="Script" uid="uid://byefmnxbyjjwr" path="res://scenes/WinScene.gd" id="1_sh4x7"]
+[ext_resource type="Texture2D" uid="uid://bvhwj06ewkf5r" path="res://assets/ui/arrow.png" id="2_pqiop"]
 [ext_resource type="Texture2D" uid="uid://bct2eey1lgao8" path="res://assets/textures/win1.png" id="3_2mbas"]
+[ext_resource type="Texture2D" uid="uid://cb4rogk773edp" path="res://assets/ui/arrow_down.png" id="3_p88u0"]
 [ext_resource type="Texture2D" uid="uid://c7ptl34suc0fh" path="res://assets/textures/win2.png" id="4_rbcjn"]
 [ext_resource type="Texture2D" uid="uid://cfgparona0q6y" path="res://assets/textures/win3.png" id="5_42odw"]
 [ext_resource type="Texture2D" uid="uid://db0ep80y6l18v" path="res://assets/textures/win4.png" id="6_0t2t5"]
@@ -10,6 +12,10 @@
 [ext_resource type="LabelSettings" uid="uid://dliju076gese8" path="res://assets/ui/custom_font.tres" id="8_rbcjn"]
 [ext_resource type="AudioStream" uid="uid://bkwrbqn35nm4x" path="res://assets/sounds/bonus.ogg" id="9_42odw"]
 [ext_resource type="Texture2D" uid="uid://q1q3wglkf4ih" path="res://assets/textures/spark.png" id="10_0t2t5"]
+[ext_resource type="AudioStream" uid="uid://byob35lkur6lt" path="res://assets/sounds/music.ogg" id="13_sx1x3"]
+[ext_resource type="AudioStream" uid="uid://5grpuvl8gfip" path="res://assets/sounds/success.ogg" id="14_iy53a"]
+[ext_resource type="Shader" uid="uid://g0ajn2e2p8u5" path="res://scripts/shader.gdshader" id="15_xre6p"]
+[ext_resource type="Script" uid="uid://b1bq2tnfavoke" path="res://scenes/ColorRect.gd" id="16_226n2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pqiop"]
 animations = [{
@@ -68,38 +74,57 @@ colors = PackedColorArray(1, 1, 1, 0.11764706, 1, 1, 1, 1)
 [sub_resource type="Gradient" id="Gradient_57ji1"]
 colors = PackedColorArray(1, 1, 1, 0.48235294, 1, 1, 1, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v068d"]
+shader = ExtResource("15_xre6p")
+shader_parameter/tolerance = 0.2000000095
+shader_parameter/color_bg = Color(0.43739998, 0.74789995, 0.81, 1)
+shader_parameter/color_fg = Color(0.9522638, 0.7172818, 0, 1)
+
 [node name="WinScene" type="Node2D" unique_id=1758266935]
 script = ExtResource("1_sh4x7")
 
+[node name="ContinueButton" type="TextureButton" parent="." unique_id=2075828656]
+z_index = 3
+offset_left = 543.0
+offset_top = 425.0
+offset_right = 607.0
+offset_bottom = 489.0
+texture_normal = ExtResource("2_pqiop")
+texture_hover = ExtResource("3_p88u0")
+
 [node name="WinFrames" type="AnimatedSprite2D" parent="." unique_id=138816928]
 z_index = 1
-position = Vector2(571, 300)
+position = Vector2(571, 333)
 sprite_frames = SubResource("SpriteFrames_pqiop")
 animation = &"0"
 autoplay = "0"
 
 [node name="BonusLabel" type="Label" parent="." unique_id=1220625631]
 offset_left = 2.0
-offset_top = 502.0
+offset_top = 546.0
 offset_right = 1151.0
-offset_bottom = 525.0
+offset_bottom = 569.0
 text = "Bonus found: 0/5"
 label_settings = ExtResource("8_rbcjn")
 horizontal_alignment = 1
-
-[node name="ContinueButton" type="Button" parent="." unique_id=1915192918]
-offset_left = 535.0
-offset_top = 542.0
-offset_right = 614.0
-offset_bottom = 573.0
-text = "sdfsdfsdf"
 
 [node name="BonusPlayer" type="AudioStreamPlayer" parent="." unique_id=60374316]
 stream = ExtResource("9_42odw")
 
 [node name="AnimationTimer" type="Timer" parent="." unique_id=978783085]
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1900728439]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=328061367]
+stream = ExtResource("13_sx1x3")
+autoplay = true
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="." unique_id=1785223619]
+stream = ExtResource("14_iy53a")
+autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1561887419]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="CanvasLayer" unique_id=1900728439]
+z_index = 18
 position = Vector2(574, 327)
 amount = 18
 texture = ExtResource("10_0t2t5")
@@ -114,3 +139,14 @@ scale_amount_min = 0.1
 color = Color(1, 1, 1, 0.5019608)
 color_ramp = SubResource("Gradient_0t2t5")
 color_initial_ramp = SubResource("Gradient_57ji1")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=458504496]
+z_index = 9
+material = SubResource("ShaderMaterial_v068d")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("16_226n2")

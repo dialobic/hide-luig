@@ -58,6 +58,12 @@ func _on_exit_button_pressed() -> void:
 	exit_button.visible = false
 	help_button.visible = false
 	
+	#suoni
+	click_player.pitch_scale = randf_range(0.95, 1.05)
+	click_player.play()
+	woosh_player.pitch_scale = randf_range(0.95, 1.05)
+	woosh_player.play()
+	
 	# Mostra l'overlay con il messaggio di conferma
 	help_overlay.visible = true
 	message_label.text = "abandon the seek?"
@@ -86,10 +92,23 @@ func _on_help_button_pressed() -> void:
 	help_image.visible = false
 	ok_button.visible = false
 	
+		#suoni
+	click_player.pitch_scale = randf_range(0.95, 1.05)
+	click_player.play()
+	woosh_player.pitch_scale = randf_range(0.95, 1.05)
+	woosh_player.play()
+	
 	# Disabilita le interazioni con il gioco
 	set_process_input(false)
 
 func _on_yes_pressed() -> void:
+	
+		#suoni
+	click_player.pitch_scale = randf_range(0.95, 1.05)
+	click_player.play()
+	woosh_player.pitch_scale = randf_range(0.95, 1.05)
+	woosh_player.play()
+	
 	match overlay_mode:
 		"help":
 			# Comportamento originale per l'help
@@ -110,6 +129,12 @@ func _on_yes_pressed() -> void:
 			get_tree().change_scene_to_file("res://scenes/LevelSelectScene.tscn")
 
 func _on_no_pressed() -> void:
+		#suoni
+	click_player.pitch_scale = randf_range(0.95, 1.05)
+	click_player.play()
+	woosh_player.pitch_scale = randf_range(0.95, 1.05)
+	woosh_player.play()
+	
 	# Chiude l'overlay
 	help_overlay.visible = false
 	exit_button.visible = true
@@ -132,6 +157,12 @@ func _on_no_pressed() -> void:
 	set_process_input(true)
 
 func _on_ok_pressed() -> void:
+		#suoni
+	click_player.pitch_scale = randf_range(0.95, 1.05)
+	click_player.play()
+	woosh_player.pitch_scale = randf_range(0.95, 1.05)
+	woosh_player.play()
+	
 	# Chiude l'overlay
 	help_overlay.visible = false
 	
