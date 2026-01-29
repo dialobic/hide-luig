@@ -2,6 +2,13 @@ extends Node2D
 
 @onready var room_container: Node2D = $RoomContainer
 @onready var ui_layer: CanvasLayer = $UI
+@onready var help_button: TextureButton = $UI/Help
+@onready var help_overlay: Sprite2D = $UI/HelpOverlay
+@onready var message_label: Label = $UI/HelpOverlay/MessageLabel
+@onready var yes_button: Button = $UI/HelpOverlay/HelpContent/YesButton
+@onready var no_button: Button = $UI/HelpOverlay/HelpContent/NoButton
+@onready var help_image: Sprite2D = $UI/HelpOverlay/HelpImage
+@onready var ok_button: Button = $UI/HelpOverlay/HelpContent/OKButton
 @onready var bonus_label: Label = $UI/BonusCounter
 @onready var exit_button: Button = $UI/ExitButton
 @onready var inventory_container: Node2D = $UI/InventoryContainer
@@ -19,6 +26,8 @@ var inventory_background: Sprite2D = null
 var sparkle: Sprite2D = null
 var sparkle_timer: Timer = null
 var sparkle_target_index: int = 0
+var current_help_image: String = ""
+var overlay_mode: String = ""  # "help" o "exit"
 
 func _ready() -> void:
 	var viewport_size = get_viewport().get_visible_rect().size
@@ -29,60 +38,152 @@ func _ready() -> void:
 	setup_ui()
 	load_room("001")
 	setup_sparkle_system()
+	setup_help_system()
+
+func setup_help_system() -> void:
+	help_button.visible = false
+	help_button.pressed.connect(_on_help_button_pressed)
 	
-	GameState.inventory_changed.connect(_on_inventory_changed)
+	help_overlay.visible = false
+	yes_button.pressed.connect(_on_yes_pressed)
+	no_button.pressed.connect(_on_no_pressed)
+	ok_button.pressed.connect(_on_ok_pressed)
+	
+	help_image.visible = false
+	ok_button.visible = false
+	
+func _on_exit_button_pressed() -> void:
+	# Imposta la modalità exit
+	overlay_mode = "exit"
+	exit_button.visible = false
+	help_button.visible = false
+	
+	# Mostra l'overlay con il messaggio di conferma
+	help_overlay.visible = true
+	message_label.text = "abandon the seek?"
+	message_label.visible = true
+	
+	# Mostra i bottoni YES/NO (nascondi OK e l'immagine di help)
+	yes_button.visible = true
+	no_button.visible = true
+	help_image.visible = false
+	ok_button.visible = false
+	
+	# Disabilita le interazioni con il gioco
+	set_process_input(false)
+
+func _on_help_button_pressed() -> void:
+	# Imposta la modalità help
+	overlay_mode = "help"
+	help_overlay.visible = true
+	help_button.visible = false
+	exit_button.visible = false
+	
+	message_label.text = "Need a little HELP?"
+	message_label.visible = true
+	yes_button.visible = true
+	no_button.visible = true
+	help_image.visible = false
+	ok_button.visible = false
+	
+	# Disabilita le interazioni con il gioco
+	set_process_input(false)
+
+func _on_yes_pressed() -> void:
+	match overlay_mode:
+		"help":
+			# Comportamento originale per l'help
+			message_label.visible = false
+			yes_button.visible = false
+			no_button.visible = false
+			
+			if current_help_image != "":
+				var texture = JSONLoader.get_level_texture(GameState.current_level, current_help_image)
+				if texture:
+					help_image.texture = texture
+					help_image.visible = true
+			
+			ok_button.visible = true
+		
+		"exit":
+			# Torna alla scena di selezione dei livelli
+			get_tree().change_scene_to_file("res://scenes/LevelSelectScene.tscn")
+
+func _on_no_pressed() -> void:
+	# Chiude l'overlay
+	help_overlay.visible = false
+	exit_button.visible = true
+	
+	# Gestisci la visibilità del bottone Help in base alla modalità
+	match overlay_mode:
+		"help":
+			if current_help_image != "":
+				help_button.visible = true
+		"exit":
+				# Riprendi la visibilità del bottone Help (se c'è un help in questa stanza)
+				if current_help_image != "":
+					help_button.visible = true
+
+	
+	# Reset della modalità
+	overlay_mode = ""
+	
+	# Riabilita le interazioni
+	set_process_input(true)
+
+func _on_ok_pressed() -> void:
+	# Chiude l'overlay
+	help_overlay.visible = false
+	
+	# Riprendi la visibilità del bottone Help (se c'è un help in questa stanza)
+	if current_help_image != "":
+		help_button.visible = true
+	
+	# Reset della modalità
+	overlay_mode = ""
+	
+	# Riabilita le interazioni
+	set_process_input(true)
+	exit_button.visible = true
+
 
 func setup_sparkle_system() -> void:
-	# Carica e crea lo sparkle
 	var sparkle_scene = preload("res://scenes/Sparkle.tscn")
 	sparkle = sparkle_scene.instantiate()
 	ui_layer.add_child(sparkle)
 	
-	# Crea il timer per lo sparkle
 	sparkle_timer = Timer.new()
-	sparkle_timer.wait_time = 3.0  # Ogni 3 secondi
+	sparkle_timer.wait_time = 3.0
 	sparkle_timer.autostart = true
 	sparkle_timer.timeout.connect(_on_sparkle_timer_timeout)
 	add_child(sparkle_timer)
 	
-	# Avvia subito il primo sparkle
 	call_deferred("_on_sparkle_timer_timeout")
 
 func _on_sparkle_timer_timeout() -> void:
-	# Ottieni TUTTI gli oggetti interattivi figli di RoomContainer
 	var all_objects = room_container.get_children()
-	
 	if all_objects.size() == 0:
-		return  # Nessuna stanza caricata
+		return
 	
-	# La stanza corrente è il primo (e unico) figlio di RoomContainer
 	var current_room = all_objects[0]
-	
-	# Ottieni tutti gli oggetti Area2D nella stanza
 	var interactive_objects = _find_all_interactive_objects(current_room)
 	
 	if interactive_objects.size() == 0:
-		return  # Nessun oggetto interattivo
+		return
 	
-	# Cicla all'oggetto successivo
 	sparkle_target_index = (sparkle_target_index + 1) % interactive_objects.size()
 	var target_object = interactive_objects[sparkle_target_index]
-	
-	# Posiziona lo sparkle sopra l'oggetto
 	var sparkle_position = target_object.global_position + Vector2(0, -9)
 	sparkle.appear_at(sparkle_position)
 
 func _find_all_interactive_objects(node: Node) -> Array:
 	var objects = []
 	
-	# Se questo nodo è un InteractiveObject (Area2D con setup method)
 	if node is Area2D and node.has_method("setup"):
-		# Controlla che non sia in fase di rimozione
 		var is_being_removed = node.get("is_being_removed")
 		if not is_being_removed or is_being_removed == false:
 			objects.append(node)
 	
-	# Cerca ricorsivamente in tutti i figli
 	for child in node.get_children():
 		objects.append_array(_find_all_interactive_objects(child))
 	
@@ -101,9 +202,9 @@ func load_level_data() -> void:
 
 func setup_ui() -> void:
 	bonus_label.text = "Bonus: 0/%d" % GameState.win_bonus_count
-	bonus_label.visible = false
+	# bonus_label.visible = false
 	exit_button.text = "EXIT"
-	exit_button.pressed.connect(_on_exit_pressed)
+	exit_button.pressed.connect(_on_exit_button_pressed)
 
 func load_room(room_key: String) -> void:
 	ambient_player.pitch_scale = randf_range(0.95, 1.05)
@@ -113,7 +214,6 @@ func load_room(room_key: String) -> void:
 	while actual_key in GameState.replaced_rooms:
 		actual_key = GameState.replaced_rooms[actual_key]
 	
-	# Controlla se la stanza è "win"
 	if actual_key == "win":
 		handle_win_room()
 		return
@@ -155,15 +255,20 @@ func load_room(room_key: String) -> void:
 		room_data.oggetti = filtered_oggetti
 	
 	current_room.initialize(room_data, actual_key)
-	# Reset sparkle system per la nuova stanza
+	
+	if room_data.has("help"):
+		current_help_image = room_data["help"]
+		help_button.call_deferred("set", "visible", true)
+	else:
+		current_help_image = ""
+		help_button.call_deferred("set", "visible", false)
+	
 	sparkle_target_index = 0
 
 func handle_win_room() -> void:
 	var bonus_collected = GameState.collected_bonuses.size()
 	GameState.save_level_progress(GameState.current_level, bonus_collected)
 	get_tree().change_scene_to_file("res://scenes/WinScene.tscn")
-	
-
 
 func handle_object_interaction(obj: Node) -> void:
 	click_player.pitch_scale = randf_range(0.95, 1.05)
@@ -212,7 +317,7 @@ func use_item(item_key: String, target_pos: Vector2, target_room: String) -> voi
 	woosh_player.pitch_scale = randf_range(0.95, 1.05)
 	woosh_player.play()
 
-func _on_item_delivered(item_key: String, target_room: String) -> void:
+func _on_item_delivered(_item_key: String, target_room: String) -> void:
 	if current_room:
 		GameState.replaced_rooms[current_room.room_key] = target_room
 	
@@ -242,15 +347,15 @@ func show_inventory_background() -> void:
 	if inventory_background:
 		return
 	
-	var bg_texture = preload("res://assets/textures/inventario.png")
+	var bg_texture = preload("res://assets/ui/inventario.png")
 	if bg_texture:
 		inventory_background = Sprite2D.new()
 		inventory_background.texture = bg_texture
 		inventory_background.centered = true
 		inventory_background.position = Vector2(GameState.inventory_x, GameState.inventory_y)
-		inventory_background.scale = Vector2.ZERO
 		inventory_container.add_child(inventory_background)
 		
+		inventory_background.scale = Vector2.ZERO
 		var tween = create_tween()
 		tween.tween_property(inventory_background, "scale", Vector2.ONE, 0.222) \
 			.set_delay(0.5) \
@@ -302,10 +407,4 @@ func create_bonus_animation(texture: Texture2D, position: Vector2) -> void:
 func update_bonus_counter() -> void:
 	var count = GameState.collected_bonuses.size()
 	bonus_label.text = "Bonus: %d/%d" % [count, GameState.win_bonus_count]
-	bonus_label.visible = count > 0
-
-func _on_inventory_changed(item_key: String) -> void:
-	pass
-
-func _on_exit_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/LevelSelectScene.tscn")
+	# bonus_label.visible = count > 0

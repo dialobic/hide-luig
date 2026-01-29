@@ -23,11 +23,10 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 12.0
+"speed": 18.0
 }]
 
 [node name="Puff" type="AnimatedSprite2D"]
-self_modulate = Color(1, 1, 1, 0.29411766)
 sprite_frames = SubResource("SpriteFrames_c7fp4")
 autoplay = "default"
 script = ExtResource("5_dltwg")

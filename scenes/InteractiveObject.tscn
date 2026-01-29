@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cwrgx0kkvtrga"]
 
 [ext_resource type="Script" uid="uid://m38dy0rn4igw" path="res://scenes/InteractiveObject.gd" id="1_ri56e"]
-[ext_resource type="Texture2D" uid="uid://dmlo86ueakaio" path="res://assets/textures/inventario.png" id="2_fd4c0"]
+[ext_resource type="Texture2D" uid="uid://dmlo86ueakaio" path="res://assets/ui/inventario.png" id="2_fd4c0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ri56e"]
 
@@ -15,6 +15,5 @@ z_index = 2
 shape = SubResource("RectangleShape2D_ri56e")
 
 [node name="Focus" type="Sprite2D" parent="."]
-self_modulate = Color(1, 1, 1, 0.29411766)
 z_index = 1
 texture = ExtResource("2_fd4c0")

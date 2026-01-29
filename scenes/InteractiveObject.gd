@@ -53,7 +53,7 @@ func _on_mouse_entered() -> void:
 	if not is_being_removed:
 		# Animazione dello sprite principale (ingrandimento)
 		var sprite_tween = create_tween()
-		sprite_tween.tween_property(sprite, "scale", Vector2(1.1, 1.1), 0.1).set_ease(Tween.EASE_OUT)
+		sprite_tween.tween_property(sprite, "scale", Vector2(1.05, 1.05), 0.1).set_ease(Tween.EASE_OUT)
 				
 		# Animazione del focus (fade-in)
 		if focus_sprite:

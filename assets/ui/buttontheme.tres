@@ -1,0 +1,17 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://c6ys1va75bwsj"]
+
+[ext_resource type="FontFile" uid="uid://rm38xuo5nhjk" path="res://assets/ui/mukunda.ttf" id="1_gmyp8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w22tq"]
+
+[resource]
+default_font = ExtResource("1_gmyp8")
+default_font_size = 18
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 0.5019608)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0.29219002, 0.29219005, 0.29219002, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0.27752772, 0.27752775, 0.27752766, 1)
+Button/font_sizes/font_size = 18
+Button/styles/focus = SubResource("StyleBoxEmpty_w22tq")

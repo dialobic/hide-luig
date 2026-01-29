@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dliju076gese8"]
+
+[ext_resource type="FontFile" uid="uid://rm38xuo5nhjk" path="res://assets/ui/mukunda.ttf" id="1_pig5f"]
+
+[resource]
+font = ExtResource("1_pig5f")
+font_size = 18
+font_color = Color(0, 0, 0, 1)

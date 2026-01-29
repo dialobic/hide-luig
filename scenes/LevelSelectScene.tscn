@@ -1,21 +1,114 @@
-[gd_scene load_steps=2 format=3 uid="uid://da1k827gnvovs"]
+[gd_scene format=3 uid="uid://da1k827gnvovs"]
 
+[ext_resource type="Theme" uid="uid://c6ys1va75bwsj" path="res://assets/ui/buttontheme.tres" id="1_10y3o"]
 [ext_resource type="Script" uid="uid://ddtikr74k2qp1" path="res://scenes/LevelButton.gd" id="1_pyko2"]
+[ext_resource type="Script" uid="uid://dhbftu6x0yu6l" path="res://scenes/LevelSelectScene.gd" id="1_yuna8"]
+[ext_resource type="Texture2D" uid="uid://mpylvgcc1ihq" path="res://assets/textures/bonus0.png" id="3_xsrx1"]
+[ext_resource type="Texture2D" uid="uid://12asoifj25jn" path="res://assets/textures/bonus1.png" id="4_k181o"]
+[ext_resource type="Texture2D" uid="uid://o65nvcrdn0gn" path="res://assets/textures/bonus2.png" id="5_yuna8"]
+[ext_resource type="Texture2D" uid="uid://broo8texnn8ua" path="res://assets/textures/bonus3.png" id="6_q6w2e"]
+[ext_resource type="Texture2D" uid="uid://elsrospfjhwe" path="res://assets/textures/bonus4.png" id="7_84p8m"]
+[ext_resource type="Texture2D" uid="uid://br2px038rl0qv" path="res://assets/textures/bonus5.png" id="8_xidab"]
+[ext_resource type="Script" uid="uid://crx2hsfgis3hb" path="res://scenes/BonusCount.gd" id="9_k181o"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_1hdbp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_xsrx1")
+}],
+"loop": false,
+"name": &"0",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_k181o")
+}],
+"loop": true,
+"name": &"1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_yuna8")
+}],
+"loop": true,
+"name": &"2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_q6w2e")
+}],
+"loop": true,
+"name": &"3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_84p8m")
+}],
+"loop": true,
+"name": &"4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_xidab")
+}],
+"loop": true,
+"name": &"5",
+"speed": 5.0
+}]
 
-[node name="Button" type="Button" parent="."]
-offset_left = 448.0
-offset_top = 232.0
-offset_right = 507.0
-offset_bottom = 263.0
-text = "levello"
+[node name="Node2D" type="Control" unique_id=293914183]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_yuna8")
+
+[node name="Button" type="Button" parent="." unique_id=309802613]
+layout_mode = 0
+offset_left = 208.0
+offset_top = 138.0
+offset_right = 334.0
+offset_bottom = 183.0
+theme = ExtResource("1_10y3o")
+theme_override_font_sizes/font_size = 36
+text = "Level 1"
+flat = true
 script = ExtResource("1_pyko2")
 level_name = "level1"
 
-[node name="BonusLabel" type="Label" parent="Button"]
+[node name="BonusCount" type="AnimatedSprite2D" parent="Button" unique_id=577350737 node_paths=PackedStringArray("next_level_button")]
+position = Vector2(223, 19)
+sprite_frames = SubResource("SpriteFrames_1hdbp")
+animation = &"0"
+autoplay = "0"
+script = ExtResource("9_k181o")
+level_name = "level1"
+next_level_button = NodePath("../../Button2")
+
+[node name="Button2" type="Button" parent="." unique_id=1535835109]
 layout_mode = 0
-offset_left = 74.0
-offset_top = 5.0
-offset_right = 114.0
-offset_bottom = 28.0
+offset_left = 206.0
+offset_top = 218.0
+offset_right = 332.0
+offset_bottom = 263.0
+theme = ExtResource("1_10y3o")
+theme_override_font_sizes/font_size = 36
+disabled = true
+text = "Level 1"
+flat = true
+script = ExtResource("1_pyko2")
+level_name = "level1"
+color_to_bg = Color(0.8392079, 0.49973595, 0.37465858, 1)
+color_to_fg = Color(0.8207185, 0.7742235, 7.70092e-07, 1)
+
+[node name="BonusCount" type="AnimatedSprite2D" parent="Button2" unique_id=1686629238]
+position = Vector2(223, 19)
+sprite_frames = SubResource("SpriteFrames_1hdbp")
+animation = &"0"
+autoplay = "0"
+script = ExtResource("9_k181o")
+level_name = "level1"

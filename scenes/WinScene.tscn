@@ -1,9 +1,116 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkgfoqptn7uxh"]
+[gd_scene format=3 uid="uid://bkgfoqptn7uxh"]
 
 [ext_resource type="Texture2D" uid="uid://dd88vmq0od47r" path="res://assets/textures/win0.png" id="1_gem6r"]
+[ext_resource type="Script" uid="uid://byefmnxbyjjwr" path="res://scenes/WinScene.gd" id="1_sh4x7"]
+[ext_resource type="Texture2D" uid="uid://bct2eey1lgao8" path="res://assets/textures/win1.png" id="3_2mbas"]
+[ext_resource type="Texture2D" uid="uid://c7ptl34suc0fh" path="res://assets/textures/win2.png" id="4_rbcjn"]
+[ext_resource type="Texture2D" uid="uid://cfgparona0q6y" path="res://assets/textures/win3.png" id="5_42odw"]
+[ext_resource type="Texture2D" uid="uid://db0ep80y6l18v" path="res://assets/textures/win4.png" id="6_0t2t5"]
+[ext_resource type="Texture2D" uid="uid://b5kp34jewlfin" path="res://assets/textures/win5.png" id="7_57ji1"]
+[ext_resource type="LabelSettings" uid="uid://dliju076gese8" path="res://assets/ui/custom_font.tres" id="8_rbcjn"]
+[ext_resource type="AudioStream" uid="uid://bkwrbqn35nm4x" path="res://assets/sounds/bonus.ogg" id="9_42odw"]
+[ext_resource type="Texture2D" uid="uid://q1q3wglkf4ih" path="res://assets/textures/spark.png" id="10_0t2t5"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_pqiop"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gem6r")
+}],
+"loop": false,
+"name": &"0",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_2mbas")
+}],
+"loop": true,
+"name": &"1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_rbcjn")
+}],
+"loop": true,
+"name": &"2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_42odw")
+}],
+"loop": true,
+"name": &"3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_0t2t5")
+}],
+"loop": true,
+"name": &"4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_57ji1")
+}],
+"loop": true,
+"name": &"5",
+"speed": 5.0
+}]
 
-[node name="Win0" type="Sprite2D" parent="."]
-position = Vector2(480, 270)
-texture = ExtResource("1_gem6r")
+[sub_resource type="Gradient" id="Gradient_0t2t5"]
+colors = PackedColorArray(1, 1, 1, 0.11764706, 1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_57ji1"]
+colors = PackedColorArray(1, 1, 1, 0.48235294, 1, 1, 1, 1)
+
+[node name="WinScene" type="Node2D" unique_id=1758266935]
+script = ExtResource("1_sh4x7")
+
+[node name="WinFrames" type="AnimatedSprite2D" parent="." unique_id=138816928]
+z_index = 1
+position = Vector2(571, 300)
+sprite_frames = SubResource("SpriteFrames_pqiop")
+animation = &"0"
+autoplay = "0"
+
+[node name="BonusLabel" type="Label" parent="." unique_id=1220625631]
+offset_left = 2.0
+offset_top = 502.0
+offset_right = 1151.0
+offset_bottom = 525.0
+text = "Bonus found: 0/5"
+label_settings = ExtResource("8_rbcjn")
+horizontal_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="." unique_id=1915192918]
+offset_left = 535.0
+offset_top = 542.0
+offset_right = 614.0
+offset_bottom = 573.0
+text = "sdfsdfsdf"
+
+[node name="BonusPlayer" type="AudioStreamPlayer" parent="." unique_id=60374316]
+stream = ExtResource("9_42odw")
+
+[node name="AnimationTimer" type="Timer" parent="." unique_id=978783085]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1900728439]
+position = Vector2(574, 327)
+amount = 18
+texture = ExtResource("10_0t2t5")
+speed_scale = 1.5
+randomness = 1.0
+lifetime_randomness = 0.35
+emission_shape = 3
+emission_rect_extents = Vector2(571, 324)
+spread = 180.0
+gravity = Vector2(0, 0)
+scale_amount_min = 0.1
+color = Color(1, 1, 1, 0.5019608)
+color_ramp = SubResource("Gradient_0t2t5")
+color_initial_ramp = SubResource("Gradient_57ji1")
