@@ -29,6 +29,7 @@ var sparkle_target_index: int = 0
 var current_help_image: String = ""
 var overlay_mode: String = ""  # "help" o "exit"
 
+
 func _ready() -> void:
 	var viewport_size = get_viewport().get_visible_rect().size
 	room_container.position = viewport_size / 2
@@ -39,6 +40,7 @@ func _ready() -> void:
 	load_room("001")
 	setup_sparkle_system()
 	setup_help_system()
+
 
 func setup_help_system() -> void:
 	help_button.visible = false
@@ -51,18 +53,15 @@ func setup_help_system() -> void:
 	
 	help_image.visible = false
 	ok_button.visible = false
-	
+
+
 func _on_exit_button_pressed() -> void:
 	# Imposta la modalità exit
 	overlay_mode = "exit"
 	exit_button.visible = false
 	help_button.visible = false
 	
-	#suoni
-	click_player.pitch_scale = randf_range(0.95, 1.05)
-	click_player.play()
-	woosh_player.pitch_scale = randf_range(0.95, 1.05)
-	woosh_player.play()
+	_play_click_woosh_sounds()
 	
 	# Mostra l'overlay con il messaggio di conferma
 	help_overlay.visible = true
@@ -78,6 +77,7 @@ func _on_exit_button_pressed() -> void:
 	# Disabilita le interazioni con il gioco
 	set_process_input(false)
 
+
 func _on_help_button_pressed() -> void:
 	# Imposta la modalità help
 	overlay_mode = "help"
@@ -92,22 +92,14 @@ func _on_help_button_pressed() -> void:
 	help_image.visible = false
 	ok_button.visible = false
 	
-		#suoni
-	click_player.pitch_scale = randf_range(0.95, 1.05)
-	click_player.play()
-	woosh_player.pitch_scale = randf_range(0.95, 1.05)
-	woosh_player.play()
+	_play_click_woosh_sounds()
 	
 	# Disabilita le interazioni con il gioco
 	set_process_input(false)
 
+
 func _on_yes_pressed() -> void:
-	
-		#suoni
-	click_player.pitch_scale = randf_range(0.95, 1.05)
-	click_player.play()
-	woosh_player.pitch_scale = randf_range(0.95, 1.05)
-	woosh_player.play()
+	_play_click_woosh_sounds()
 	
 	match overlay_mode:
 		"help":
@@ -128,27 +120,17 @@ func _on_yes_pressed() -> void:
 			# Torna alla scena di selezione dei livelli
 			get_tree().change_scene_to_file("res://scenes/LevelSelectScene.tscn")
 
+
 func _on_no_pressed() -> void:
-		#suoni
-	click_player.pitch_scale = randf_range(0.95, 1.05)
-	click_player.play()
-	woosh_player.pitch_scale = randf_range(0.95, 1.05)
-	woosh_player.play()
+	_play_click_woosh_sounds()
 	
 	# Chiude l'overlay
 	help_overlay.visible = false
 	exit_button.visible = true
 	
 	# Gestisci la visibilità del bottone Help in base alla modalità
-	match overlay_mode:
-		"help":
-			if current_help_image != "":
-				help_button.visible = true
-		"exit":
-				# Riprendi la visibilità del bottone Help (se c'è un help in questa stanza)
-				if current_help_image != "":
-					help_button.visible = true
-
+	if overlay_mode == "help" and current_help_image != "":
+		help_button.visible = true
 	
 	# Reset della modalità
 	overlay_mode = ""
@@ -156,12 +138,9 @@ func _on_no_pressed() -> void:
 	# Riabilita le interazioni
 	set_process_input(true)
 
+
 func _on_ok_pressed() -> void:
-		#suoni
-	click_player.pitch_scale = randf_range(0.95, 1.05)
-	click_player.play()
-	woosh_player.pitch_scale = randf_range(0.95, 1.05)
-	woosh_player.play()
+	_play_click_woosh_sounds()
 	
 	# Chiude l'overlay
 	help_overlay.visible = false
@@ -191,6 +170,7 @@ func setup_sparkle_system() -> void:
 	
 	call_deferred("_on_sparkle_timer_timeout")
 
+
 func _on_sparkle_timer_timeout() -> void:
 	var all_objects = room_container.get_children()
 	if all_objects.size() == 0:
@@ -207,6 +187,7 @@ func _on_sparkle_timer_timeout() -> void:
 	var sparkle_position = target_object.global_position + Vector2(0, -9)
 	sparkle.appear_at(sparkle_position)
 
+
 func _find_all_interactive_objects(node: Node) -> Array:
 	var objects = []
 	
@@ -220,6 +201,7 @@ func _find_all_interactive_objects(node: Node) -> Array:
 	
 	return objects
 
+
 func load_level_data() -> void:
 	var data = JSONLoader.load_level(GameState.current_level)
 	if data.is_empty():
@@ -231,11 +213,12 @@ func load_level_data() -> void:
 	if data.has("config"):
 		GameState.set_level_config(data.config)
 
+
 func setup_ui() -> void:
 	bonus_label.text = "Bonus: 0/%d" % GameState.win_bonus_count
-	# bonus_label.visible = false
 	exit_button.text = "EXIT"
 	exit_button.pressed.connect(_on_exit_button_pressed)
+
 
 func load_room(room_key: String) -> void:
 	ambient_player.pitch_scale = randf_range(0.95, 1.05)
@@ -270,16 +253,22 @@ func load_room(room_key: String) -> void:
 	if room_data.has("oggetti"):
 		var oggetti = room_data.oggetti
 		var filtered_oggetti = []
+		
 		for oggetto in oggetti:
+			# Filtra i bonus già raccolti
 			if oggetto.get("tipo") == "bonus":
 				var bonus_id = oggetto.get("item")
 				if bonus_id and GameState.collected_bonuses.has(bonus_id):
 					continue
 			
+			# Filtra gli oggetti "prendi" già raccolti o usati
 			if oggetto.get("tipo") == "prendi":
 				var item_id = oggetto.get("item")
-				if item_id and GameState.inventory_item == item_id.replace(".png", ""):
-					continue
+				if item_id:
+					var item_key = item_id.replace(".png", "")
+					# Controlla se l'oggetto è nell'inventario o se è stato usato
+					if GameState.inventory_item == item_key or GameState.used_items.has(item_key):
+						continue
 			
 			filtered_oggetti.append(oggetto)
 		
@@ -287,6 +276,7 @@ func load_room(room_key: String) -> void:
 	
 	current_room.initialize(room_data, actual_key)
 	
+	# Gestione help button
 	if room_data.has("help"):
 		current_help_image = room_data["help"]
 		help_button.call_deferred("set", "visible", true)
@@ -296,10 +286,12 @@ func load_room(room_key: String) -> void:
 	
 	sparkle_target_index = 0
 
+
 func handle_win_room() -> void:
 	var bonus_collected = GameState.collected_bonuses.size()
 	GameState.save_level_progress(GameState.current_level, bonus_collected)
 	get_tree().change_scene_to_file("res://scenes/WinScene.tscn")
+
 
 func handle_object_interaction(obj: Node) -> void:
 	click_player.pitch_scale = randf_range(0.95, 1.05)
@@ -313,8 +305,17 @@ func handle_object_interaction(obj: Node) -> void:
 			pick_up_item(obj.item_name, obj.global_position, obj)
 		
 		"metti":
-			if GameState.inventory_item == obj.item_name:
-				use_item(obj.item_name, obj.global_position, obj.target_room)
+			# Modifica: controlla se l'oggetto nell'inventario è in una lista di opzioni
+			var accepted_items = obj.item_name.split(",")
+			var item_found = false
+			
+			for item in accepted_items:
+				if GameState.inventory_item == item.strip_edges():  # strip_edges rimuove spazi
+					item_found = true
+					break
+			
+			if item_found:
+				use_item(GameState.inventory_item, obj.global_position, obj.target_room)
 			else:
 				wrong_player.pitch_scale = randf_range(0.95, 1.05)
 				wrong_player.play()
@@ -336,6 +337,7 @@ func pick_up_item(item_key: String, start_pos: Vector2, obj: Node) -> void:
 	take_player.pitch_scale = randf_range(0.95, 1.05)
 	take_player.play()
 
+
 func use_item(item_key: String, target_pos: Vector2, target_room: String) -> void:
 	if not inventory_item_node:
 		return
@@ -348,9 +350,13 @@ func use_item(item_key: String, target_pos: Vector2, target_room: String) -> voi
 	woosh_player.pitch_scale = randf_range(0.95, 1.05)
 	woosh_player.play()
 
-func _on_item_delivered(_item_key: String, target_room: String) -> void:
+
+func _on_item_delivered(item_key: String, target_room: String) -> void:
 	if current_room:
 		GameState.replaced_rooms[current_room.room_key] = target_room
+	
+	# Aggiungi l'oggetto alla lista degli oggetti usati
+	GameState.mark_item_as_used(item_key)
 	
 	clear_inventory()
 	
@@ -358,6 +364,7 @@ func _on_item_delivered(_item_key: String, target_room: String) -> void:
 	done_player.play()
 	
 	load_room(target_room)
+
 
 func create_inventory_item(item_key: String, start_pos: Vector2) -> void:
 	var inventory_scene = preload("res://scenes/InventoryItem.tscn")
@@ -374,11 +381,12 @@ func create_inventory_item(item_key: String, start_pos: Vector2) -> void:
 		inventory_item_node.animate_to_inventory(start_pos, inventory_pos)
 		show_inventory_background()
 
+
 func show_inventory_background() -> void:
 	if inventory_background:
 		return
 	
-	var bg_texture = preload("res://assets/ui/inventario.png")
+	var bg_texture = preload("res://assets/inventario.png")
 	if bg_texture:
 		inventory_background = Sprite2D.new()
 		inventory_background.texture = bg_texture
@@ -393,6 +401,7 @@ func show_inventory_background() -> void:
 			.set_ease(Tween.EASE_OUT) \
 			.set_trans(Tween.TRANS_BACK)
 
+
 func clear_inventory() -> void:
 	if inventory_item_node:
 		inventory_item_node.queue_free()
@@ -404,6 +413,7 @@ func clear_inventory() -> void:
 	if inventory_background:
 		inventory_background.queue_free()
 		inventory_background = null
+
 
 func collect_bonus(bonus_id: String, bonus_obj: Node) -> void:
 	if not bonus_id in GameState.collected_bonuses:
@@ -422,6 +432,7 @@ func collect_bonus(bonus_id: String, bonus_obj: Node) -> void:
 		if bonus_texture:
 			create_bonus_animation(bonus_texture, bonus_global_pos)
 
+
 func create_bonus_animation(texture: Texture2D, position: Vector2) -> void:
 	var anim_sprite = Sprite2D.new()
 	anim_sprite.texture = texture
@@ -435,7 +446,14 @@ func create_bonus_animation(texture: Texture2D, position: Vector2) -> void:
 	tween.parallel().tween_property(anim_sprite, "modulate:a", 0.0, 0.5)
 	tween.tween_callback(anim_sprite.queue_free)
 
+
 func update_bonus_counter() -> void:
 	var count = GameState.collected_bonuses.size()
 	bonus_label.text = "Bonus: %d/%d" % [count, GameState.win_bonus_count]
-	# bonus_label.visible = count > 0
+
+
+func _play_click_woosh_sounds() -> void:
+	click_player.pitch_scale = randf_range(0.95, 1.05)
+	click_player.play()
+	woosh_player.pitch_scale = randf_range(0.95, 1.05)
+	woosh_player.play()

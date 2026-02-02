@@ -9,10 +9,11 @@ var rooms_data: Dictionary = {}
 var replaced_rooms: Dictionary = {}
 var collected_bonuses: Array = []
 var inventory_item: String = ""
+var used_items = {}
 
 # === CONFIG ===
-var color_bg : Color = Color("66ccccff")
-var color_fg : Color = Color("ffcc00ff")
+var color_bg : Color = Color("ffcc99ff")
+var color_fg : Color = Color("ffa35cff")
 var win_bonus_count: int = 5
 
 # === UI POSITIONS ===
@@ -30,11 +31,15 @@ func _ready() -> void:
 	load_progress()
 	#print("Progress loaded on startup: ", level_progress)
 
+func mark_item_as_used(item_key: String) -> void:
+	used_items[item_key] = true
+
 func reset_level_state() -> void:
 	replaced_rooms.clear()
 	collected_bonuses.clear()
 	inventory_item = ""
 	inventory_changed.emit("")
+	used_items.clear()
 
 func set_level_config(config: Dictionary) -> void:
 	if config.has("win_bonus_count"):

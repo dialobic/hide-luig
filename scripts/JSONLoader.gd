@@ -36,7 +36,7 @@ static func get_level_texture(level_name: String, texture_name: String) -> Textu
 		return load(path)
 	
 	# Prova nella cartella assets generica come fallback
-	path = "res://assets/textures/%s" % texture_name
+	path = "res://assets/%s" % texture_name
 	if ResourceLoader.exists(path):
 		return load(path)
 	

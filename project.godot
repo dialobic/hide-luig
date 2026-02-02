@@ -14,10 +14,12 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="HideLuig2"
+config/name="pig_luig"
 run/main_scene="uid://da1k827gnvovs"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-boot_splash/bg_color=Color(0.4745098, 0.7882353, 0.77254903, 1)
+boot_splash/bg_color=Color(1, 0.8, 0.6, 1)
+boot_splash/show_image=false
+boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
 [autoload]
@@ -32,4 +34,4 @@ window/stretch/mode="canvas_items"
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.4745098, 0.7882353, 0.77254903, 1)
+environment/defaults/default_clear_color=Color(0.4, 0.8, 0.8, 1)

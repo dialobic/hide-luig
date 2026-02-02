@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cb5etmwaxh5do"]
+[gd_scene format=3 uid="uid://cb5etmwaxh5do"]
 
-[ext_resource type="Texture2D" uid="uid://7wm8djolw03r" path="res://assets/textures/puff3.png" id="1_2usy8"]
-[ext_resource type="Texture2D" uid="uid://cguksshnq5w6p" path="res://assets/textures/puff5.png" id="2_dltwg"]
-[ext_resource type="Texture2D" uid="uid://15fb4cwwg0jg" path="res://assets/textures/puff7.png" id="3_6nso5"]
-[ext_resource type="Texture2D" uid="uid://cah0ckkpn5o6f" path="res://assets/textures/puff8.png" id="4_t3dwf"]
+[ext_resource type="Texture2D" uid="uid://7wm8djolw03r" path="res://assets/puff3.png" id="1_2usy8"]
+[ext_resource type="Texture2D" uid="uid://cguksshnq5w6p" path="res://assets/puff5.png" id="2_dltwg"]
+[ext_resource type="Texture2D" uid="uid://15fb4cwwg0jg" path="res://assets/puff7.png" id="3_6nso5"]
+[ext_resource type="Texture2D" uid="uid://cah0ckkpn5o6f" path="res://assets/puff8.png" id="4_t3dwf"]
 [ext_resource type="Script" uid="uid://clhsfvn3ogamd" path="res://scenes/Puff.gd" id="5_dltwg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_c7fp4"]
