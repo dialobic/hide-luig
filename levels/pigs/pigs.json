@@ -33,7 +33,8 @@
             ]
         },
         "win": {
-            "oggetti": []
+            "oggetti": [],
+            "image": "pigs104g.png"
         },
         "002": {
             "image": "pigs102.png",
@@ -92,10 +93,10 @@
                 {
                     "tipo": "porta",
                     "pos": [
-                        126,
+                        127,
                         -1
                     ],
-                    "target": "001",
+                    "target": "011",
                     "icona": "vuoto.png"
                 }
             ]
@@ -136,7 +137,8 @@
                         115,
                         -51
                     ],
-                    "item": "coin",
+                    "target": "004c",
+                    "item": "coin1,coin2,coin3",
                     "icona": "vuoto.png"
                 }
             ]
@@ -159,8 +161,8 @@
                         148,
                         176
                     ],
-                    "item": "food1",
-                    "icona": "food1.png"
+                    "item": "turnip",
+                    "icona": "turnip.png"
                 }
             ]
         },
@@ -207,6 +209,15 @@
                     ],
                     "target": "005",
                     "icona": "left.png"
+                },
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        120,
+                        -94
+                    ],
+                    "target": "009",
+                    "icona": "vuoto.png"
                 }
             ]
         },
@@ -333,6 +344,15 @@
                     ],
                     "item": "blanket",
                     "icona": "blanket.png"
+                },
+                {
+                    "tipo": "bonus",
+                    "pos": [
+                        -7,
+                        -195
+                    ],
+                    "item": "bonus5",
+                    "icona": "bonus.png"
                 }
             ]
         },
@@ -358,13 +378,13 @@
                     "icona": "knob.png"
                 },
                 {
-                    "tipo": "prendi",
+                    "tipo": "bonus",
                     "pos": [
-                        54,
-                        -5
+                        36,
+                        -39
                     ],
-                    "item": "coin",
-                    "icona": "coin.png"
+                    "icona": "bonus.png",
+                    "item": "bonus1"
                 }
             ]
         },
@@ -641,7 +661,7 @@
                         -69,
                         19
                     ],
-                    "item": "bonus1",
+                    "item": "bonus2",
                     "icona": "bonus.png"
                 },
                 {
@@ -670,11 +690,742 @@
                 {
                     "tipo": "prendi",
                     "pos": [
-                        56,
-                        9
+                        -33,
+                        -39
                     ],
                     "item": "lens",
                     "icona": "lens.png"
+                },
+                {
+                    "tipo": "prendi",
+                    "pos": [
+                        69,
+                        12
+                    ],
+                    "item": "opener",
+                    "icona": "opener.png"
+                }
+            ]
+        },
+        "009": {
+            "image": "pigs109.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        209,
+                        221
+                    ],
+                    "target": "010",
+                    "icona": "right.png"
+                },
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -149,
+                        -4
+                    ],
+                    "target": "006",
+                    "icona": "vuoto.png"
+                },
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        78,
+                        -143
+                    ],
+                    "target": "009b",
+                    "icona": "vuoto.png"
+                },
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        168,
+                        68
+                    ],
+                    "target": "009c",
+                    "icona": "vuoto.png"
+                },
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        68,
+                        70
+                    ],
+                    "target": "009c",
+                    "icona": "vuoto.png"
+                },
+                {
+                    "tipo": "bonus",
+                    "pos": [
+                        8,
+                        -175
+                    ],
+                    "item": "bonus3",
+                    "icona": "bonus.png"
+                }
+            ]
+        },
+        "010": {
+            "image": "pigs110.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -209,
+                        221
+                    ],
+                    "target": "009",
+                    "icona": "left.png"
+                },
+                {
+                    "tipo": "metti",
+                    "pos": [
+                        -78,
+                        13
+                    ],
+                    "target": "010b",
+                    "item": "banana,cake,turnip,can",
+                    "icona": "vuoto.png"
+                }
+            ]
+        },
+        "010b": {
+            "image": "pigs110b.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -209,
+                        221
+                    ],
+                    "target": "009",
+                    "icona": "left.png"
+                },
+                {
+                    "tipo": "metti",
+                    "pos": [
+                        -78,
+                        13
+                    ],
+                    "target": "010c",
+                    "item": "banana,cake,turnip,can",
+                    "icona": "vuoto.png"
+                }
+            ]
+        },
+        "009b": {
+            "image": "pigs109b.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -209,
+                        221
+                    ],
+                    "target": "009",
+                    "icona": "left.png"
+                },
+                {
+                    "tipo": "metti",
+                    "pos": [
+                        -89,
+                        -57
+                    ],
+                    "target": "009d",
+                    "item": "opener",
+                    "icona": "vuoto.png"
+                }
+            ]
+        },
+        "009c": {
+            "image": "pigs109c.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -209,
+                        221
+                    ],
+                    "target": "009",
+                    "icona": "left.png"
+                },
+                {
+                    "tipo": "prendi",
+                    "pos": [
+                        2,
+                        -63
+                    ],
+                    "item": "cake",
+                    "icona": "cake.png"
+                },
+                {
+                    "tipo": "prendi",
+                    "pos": [
+                        -10,
+                        33
+                    ],
+                    "item": "banana",
+                    "icona": "banana.png"
+                },
+                {
+                    "tipo": "prendi",
+                    "pos": [
+                        -193,
+                        -3
+                    ],
+                    "item": "plunger",
+                    "icona": "plunger.png"
+                }
+            ]
+        },
+        "011": {
+            "image": "pigs111.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        209,
+                        221
+                    ],
+                    "target": "012",
+                    "icona": "right.png"
+                },
+                {
+                    "tipo": "bonus",
+                    "pos": [
+                        61,
+                        -127
+                    ],
+                    "item": "bonus4",
+                    "icona": "bonus.png"
+                },
+                {
+                    "tipo": "prendi",
+                    "pos": [
+                        166,
+                        -10
+                    ],
+                    "item": "towel",
+                    "icona": "towel.png"
+                },
+                {
+                    "tipo": "prendi",
+                    "pos": [
+                        48,
+                        61
+                    ],
+                    "item": "bucket2",
+                    "icona": "bucket2.png"
+                },
+                {
+                    "tipo": "prendi",
+                    "pos": [
+                        -30,
+                        22
+                    ],
+                    "item": "soap",
+                    "icona": "soap.png"
+                },
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -147,
+                        -16
+                    ],
+                    "target": "003",
+                    "icona": "vuoto.png"
+                }
+            ]
+        },
+        "012": {
+            "image": "pigs112.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -209,
+                        221
+                    ],
+                    "target": "011",
+                    "icona": "left.png"
+                },
+                {
+                    "tipo": "metti",
+                    "pos": [
+                        77,
+                        50
+                    ],
+                    "target": "012b",
+                    "item": "bucket1,bucket2",
+                    "icona": "vuoto.png"
+                },
+                {
+                    "tipo": "prendi",
+                    "pos": [
+                        164,
+                        190
+                    ],
+                    "item": "bucket1",
+                    "icona": "bucket1.png"
+                },
+                {
+                    "tipo": "prendi",
+                    "pos": [
+                        165,
+                        -135
+                    ],
+                    "item": "sponge",
+                    "icona": "sponge.png"
+                }
+            ]
+        },
+        "012b": {
+            "image": "pigs112b.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -209,
+                        221
+                    ],
+                    "target": "011",
+                    "icona": "left.png"
+                },
+                {
+                    "tipo": "metti",
+                    "pos": [
+                        77,
+                        50
+                    ],
+                    "target": "012c",
+                    "item": "bucket1,bucket2",
+                    "icona": "vuoto.png"
+                },
+                {
+                    "tipo": "prendi",
+                    "pos": [
+                        164,
+                        190
+                    ],
+                    "item": "bucket1",
+                    "icona": "bucket1.png"
+                },
+                {
+                    "tipo": "prendi",
+                    "pos": [
+                        165,
+                        -135
+                    ],
+                    "item": "sponge",
+                    "icona": "sponge.png"
+                }
+            ]
+        },
+        "012c": {
+            "image": "pigs112c.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -209,
+                        221
+                    ],
+                    "target": "011",
+                    "icona": "left.png"
+                },
+                {
+                    "tipo": "metti",
+                    "pos": [
+                        119,
+                        70
+                    ],
+                    "target": "012d",
+                    "item": "soap",
+                    "icona": "vuoto.png"
+                },
+                {
+                    "tipo": "prendi",
+                    "pos": [
+                        165,
+                        -135
+                    ],
+                    "item": "sponge",
+                    "icona": "sponge.png"
+                }
+            ]
+        },
+        "012d": {
+            "image": "pigs112d.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -209,
+                        221
+                    ],
+                    "target": "011",
+                    "icona": "left.png"
+                },
+                {
+                    "tipo": "metti",
+                    "pos": [
+                        61,
+                        -5
+                    ],
+                    "target": "012e",
+                    "item": "sponge",
+                    "icona": "vuoto.png"
+                },
+                {
+                    "tipo": "prendi",
+                    "pos": [
+                        165,
+                        -135
+                    ],
+                    "item": "sponge",
+                    "icona": "sponge.png"
+                }
+            ]
+        },
+        "012e": {
+            "image": "pigs112e.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -209,
+                        221
+                    ],
+                    "target": "011",
+                    "icona": "left.png"
+                },
+                {
+                    "tipo": "metti",
+                    "pos": [
+                        61,
+                        -5
+                    ],
+                    "target": "012f",
+                    "item": "towel",
+                    "icona": "vuoto.png"
+                }
+            ]
+        },
+        "012f": {
+            "image": "pigs112f.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -209,
+                        221
+                    ],
+                    "target": "011",
+                    "icona": "left.png"
+                },
+                {
+                    "tipo": "metti",
+                    "pos": [
+                        68,
+                        62
+                    ],
+                    "target": "012g",
+                    "item": "plunger",
+                    "icona": "vuoto.png"
+                }
+            ]
+        },
+        "012g": {
+            "image": "pigs112g.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -209,
+                        221
+                    ],
+                    "target": "011",
+                    "icona": "left.png"
+                },
+                {
+                    "tipo": "prendi",
+                    "pos": [
+                        86,
+                        75
+                    ],
+                    "item": "coin1",
+                    "icona": "coin1.png"
+                }
+            ]
+        },
+        "010c": {
+            "image": "pigs110c.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -209,
+                        221
+                    ],
+                    "target": "009",
+                    "icona": "left.png"
+                },
+                {
+                    "tipo": "metti",
+                    "pos": [
+                        -78,
+                        13
+                    ],
+                    "target": "010d",
+                    "item": "banana,cake,turnip,can",
+                    "icona": "vuoto.png"
+                }
+            ]
+        },
+        "010d": {
+            "image": "pigs110d.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -209,
+                        221
+                    ],
+                    "target": "009",
+                    "icona": "left.png"
+                },
+                {
+                    "tipo": "metti",
+                    "pos": [
+                        -78,
+                        13
+                    ],
+                    "target": "010e",
+                    "item": "banana,cake,turnip,can",
+                    "icona": "vuoto.png"
+                }
+            ]
+        },
+        "010e": {
+            "image": "pigs110e.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -209,
+                        221
+                    ],
+                    "target": "009",
+                    "icona": "left.png"
+                },
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -87,
+                        96
+                    ],
+                    "target": "010f",
+                    "icona": "vuoto.png"
+                }
+            ]
+        },
+        "010f": {
+            "image": "pigs110f.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -209,
+                        221
+                    ],
+                    "target": "010",
+                    "icona": "left.png"
+                },
+                {
+                    "tipo": "prendi",
+                    "pos": [
+                        -12,
+                        -14
+                    ],
+                    "item": "coin3",
+                    "icona": "coin3.png"
+                }
+            ]
+        },
+        "009d": {
+            "image": "pigs109d.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -209,
+                        221
+                    ],
+                    "target": "009",
+                    "icona": "left.png"
+                },
+                {
+                    "tipo": "prendi",
+                    "pos": [
+                        -75,
+                        -68
+                    ],
+                    "item": "can",
+                    "icona": "can.png"
+                }
+            ]
+        },
+        "004c": {
+            "image": "pigs104c.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        205,
+                        218
+                    ],
+                    "target": "003",
+                    "icona": "right.png"
+                },
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -108,
+                        -36
+                    ],
+                    "target": "001",
+                    "icona": "vuoto.png"
+                },
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        88,
+                        45
+                    ],
+                    "target": "004b",
+                    "icona": "vuoto.png"
+                },
+                {
+                    "tipo": "metti",
+                    "pos": [
+                        115,
+                        -51
+                    ],
+                    "target": "004d",
+                    "item": "coin1,coin2,coin3",
+                    "icona": "vuoto.png"
+                }
+            ]
+        },
+        "004d": {
+            "image": "pigs104d.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        205,
+                        218
+                    ],
+                    "target": "003",
+                    "icona": "right.png"
+                },
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -108,
+                        -36
+                    ],
+                    "target": "001",
+                    "icona": "vuoto.png"
+                },
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        88,
+                        45
+                    ],
+                    "target": "004b",
+                    "icona": "vuoto.png"
+                },
+                {
+                    "tipo": "metti",
+                    "pos": [
+                        115,
+                        -51
+                    ],
+                    "target": "004e",
+                    "item": "coin1,coin2,coin3",
+                    "icona": "vuoto.png"
+                }
+            ]
+        },
+        "004e": {
+            "image": "pigs104e.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        205,
+                        218
+                    ],
+                    "target": "003",
+                    "icona": "right.png"
+                },
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -108,
+                        -36
+                    ],
+                    "target": "001",
+                    "icona": "vuoto.png"
+                },
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        91,
+                        55
+                    ],
+                    "target": "004b",
+                    "icona": "vuoto.png"
+                },
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        113,
+                        -53
+                    ],
+                    "target": "004f",
+                    "icona": "vuoto.png"
+                }
+            ]
+        },
+        "004f": {
+            "image": "pigs104f.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -26,
+                        -34
+                    ],
+                    "target": "004g",
+                    "icona": "vuoto.png"
+                }
+            ]
+        },
+        "004g": {
+            "image": "pigs104g.png",
+            "oggetti": [
+                {
+                    "tipo": "porta",
+                    "pos": [
+                        -5,
+                        -140
+                    ],
+                    "target": "win",
+                    "icona": "vuoto.png"
                 }
             ]
         }

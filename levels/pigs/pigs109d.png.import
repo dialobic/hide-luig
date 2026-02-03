@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxsw5kex5jcmf"
-path="res://.godot/imported/food1.png-e0f2f265c43c599aefaef646c81c072e.ctex"
+uid="uid://brd3e63pqohor"
+path="res://.godot/imported/pigs109d.png-4ff0ca8af4c99a037d4b716ef174d1ad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://levels/pigs/food1.png"
-dest_files=["res://.godot/imported/food1.png-e0f2f265c43c599aefaef646c81c072e.ctex"]
+source_file="res://levels/pigs/pigs109d.png"
+dest_files=["res://.godot/imported/pigs109d.png-4ff0ca8af4c99a037d4b716ef174d1ad.ctex"]
 
 [params]
 

@@ -47,13 +47,20 @@ func set_level_config(config: Dictionary) -> void:
 
 func save_level_progress(level_name: String, bonus_collected: int) -> void:
 	# Salva i progressi per questo livello
+	print("=== SALVATAGGIO PROGRESSI ===")
+	print("Livello: ", level_name)
+	print("Bonus raccolti: ", bonus_collected)
+	
 	level_progress[level_name] = bonus_collected
 	save_to_file()
-	#print("Progress saved: ", level_name, " -> ", bonus_collected, " bonus")
+	
+	print("Dopo salvataggio: ", level_progress)
+	print("========================")
 
 func get_level_progress(level_name: String) -> int:
-	# Restituisce il numero di bonus raccolti per un livello (0 se non presente)
-	return level_progress.get(level_name, 0)
+	var progress = level_progress.get(level_name, 0)
+	print("GameState - Level: ", level_name, " -> ", progress, " bonuses")
+	return progress
 
 func load_progress() -> void:
 	# Carica i progressi dal file

@@ -1,20 +1,26 @@
 extends Button
 
-@export var level_name: String = ""  # Nome del livello
-#@export var color_to_bg: Color = Color("70cf9e") # Colore che sostituirà il Teal
-#@export var color_to_fg: Color = Color("e98b00") # Colore che sostituirà il Giallo
+@export var level_name: String = ""
+@onready var bonus_animation: AnimatedSprite2D = $BonusCount
 
 func _ready() -> void:
 	pressed.connect(_on_pressed)
+	update_bonus_animation()
+
+func update_bonus_animation() -> void:
+	if not bonus_animation:
+		return
+	
+	# Leggi i progressi CORRENTI da GameState (già in memoria)
+	var bonus_collected = GameState.level_progress.get(level_name, 0)
+	
+	print("Livello: ", level_name, " - Bonus: ", bonus_collected)
+	
+	# Ferma l'animazione corrente e imposta quella corretta
+	bonus_animation.stop()
+	bonus_animation.play(str(bonus_collected))
 
 func _on_pressed() -> void:
 	if level_name != "":
-		# 1. Scriviamo i colori scelti nel GameState prima di cambiare scena
-		#GameState.color_bg = color_to_bg
-		#GameState.color_fg = color_to_fg
-		
-		# 2. Impostiamo il livello corrente
 		GameState.current_level = level_name
-		
-		# 3. Cambiamo scena
 		get_tree().change_scene_to_file("res://scenes/GameScene.tscn")

@@ -81,6 +81,8 @@ func _show_continue_button() -> void:
 
 func _on_continue_pressed() -> void:
 	# Torna alla selezione dei livelli
+	# forziamo il caricamento dei progressi
+	GameState.load_progress()
 	get_tree().change_scene_to_file("res://scenes/LevelSelectScene.tscn")
 
 # Opzionale: gestisci la visibilità della label bonus

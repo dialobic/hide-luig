@@ -11,9 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://b5kp34jewlfin" path="res://assets/win5.png" id="7_57ji1"]
 [ext_resource type="LabelSettings" uid="uid://dliju076gese8" path="res://assets/custom_font.tres" id="8_rbcjn"]
 [ext_resource type="AudioStream" uid="uid://bkwrbqn35nm4x" path="res://assets/sounds/bonus.ogg" id="9_42odw"]
-[ext_resource type="Texture2D" uid="uid://q1q3wglkf4ih" path="res://assets/spark.png" id="10_0t2t5"]
 [ext_resource type="AudioStream" uid="uid://byob35lkur6lt" path="res://assets/sounds/music.ogg" id="13_sx1x3"]
 [ext_resource type="AudioStream" uid="uid://5grpuvl8gfip" path="res://assets/sounds/success.ogg" id="14_iy53a"]
+[ext_resource type="Texture2D" uid="uid://dev0ehjgxjlmq" path="res://assets/spark36.png" id="14_xre6p"]
 [ext_resource type="Shader" uid="uid://g0ajn2e2p8u5" path="res://scripts/shader.gdshader" id="15_xre6p"]
 [ext_resource type="Script" uid="uid://b1bq2tnfavoke" path="res://scenes/ColorRect.gd" id="16_226n2"]
 
@@ -127,7 +127,7 @@ autoplay = true
 z_index = 18
 position = Vector2(574, 327)
 amount = 18
-texture = ExtResource("10_0t2t5")
+texture = ExtResource("14_xre6p")
 speed_scale = 1.5
 randomness = 1.0
 lifetime_randomness = 0.35
