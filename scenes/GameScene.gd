@@ -19,6 +19,7 @@ extends Node2D
 @onready var take_player = $SoundPool/TakePlayer
 @onready var woosh_player = $SoundPool/WooshPlayer
 @onready var wrong_player = $SoundPool/WrongPlayer
+@onready var success_player = $SoundPool/SuccessPlayer
 
 var current_room: Node = null
 var inventory_item_node: InventoryItem = null
@@ -27,7 +28,7 @@ var sparkle: Sprite2D = null
 var sparkle_timer: Timer = null
 var sparkle_target_index: int = 0
 var current_help_image: String = ""
-var overlay_mode: String = ""  # "help" o "exit"
+var overlay_mode: String = ""
 
 
 func _ready() -> void:
@@ -56,30 +57,25 @@ func setup_help_system() -> void:
 
 
 func _on_exit_button_pressed() -> void:
-	# Imposta la modalità exit
 	overlay_mode = "exit"
 	exit_button.visible = false
 	help_button.visible = false
 	
 	_play_click_woosh_sounds()
 	
-	# Mostra l'overlay con il messaggio di conferma
 	help_overlay.visible = true
 	message_label.text = "abandon the seek?"
 	message_label.visible = true
 	
-	# Mostra i bottoni YES/NO (nascondi OK e l'immagine di help)
 	yes_button.visible = true
 	no_button.visible = true
 	help_image.visible = false
 	ok_button.visible = false
 	
-	# Disabilita le interazioni con il gioco
 	set_process_input(false)
 
 
 func _on_help_button_pressed() -> void:
-	# Imposta la modalità help
 	overlay_mode = "help"
 	help_overlay.visible = true
 	help_button.visible = false
@@ -93,8 +89,6 @@ func _on_help_button_pressed() -> void:
 	ok_button.visible = false
 	
 	_play_click_woosh_sounds()
-	
-	# Disabilita le interazioni con il gioco
 	set_process_input(false)
 
 
@@ -103,7 +97,6 @@ func _on_yes_pressed() -> void:
 	
 	match overlay_mode:
 		"help":
-			# Comportamento originale per l'help
 			message_label.visible = false
 			yes_button.visible = false
 			no_button.visible = false
@@ -117,42 +110,29 @@ func _on_yes_pressed() -> void:
 			ok_button.visible = true
 		
 		"exit":
-			# Torna alla scena di selezione dei livelli
 			get_tree().change_scene_to_file("res://scenes/LevelSelectScene.tscn")
 
 
 func _on_no_pressed() -> void:
 	_play_click_woosh_sounds()
-	
-	# Chiude l'overlay
 	help_overlay.visible = false
 	exit_button.visible = true
 	
-	# Gestisci la visibilità del bottone Help in base alla modalità
 	if overlay_mode == "help" and current_help_image != "":
 		help_button.visible = true
 	
-	# Reset della modalità
 	overlay_mode = ""
-	
-	# Riabilita le interazioni
 	set_process_input(true)
 
 
 func _on_ok_pressed() -> void:
 	_play_click_woosh_sounds()
-	
-	# Chiude l'overlay
 	help_overlay.visible = false
 	
-	# Riprendi la visibilità del bottone Help (se c'è un help in questa stanza)
 	if current_help_image != "":
 		help_button.visible = true
 	
-	# Reset della modalità
 	overlay_mode = ""
-	
-	# Riabilita le interazioni
 	set_process_input(true)
 	exit_button.visible = true
 
@@ -255,18 +235,15 @@ func load_room(room_key: String) -> void:
 		var filtered_oggetti = []
 		
 		for oggetto in oggetti:
-			# Filtra i bonus già raccolti
 			if oggetto.get("tipo") == "bonus":
 				var bonus_id = oggetto.get("item")
 				if bonus_id and GameState.collected_bonuses.has(bonus_id):
 					continue
 			
-			# Filtra gli oggetti "prendi" già raccolti o usati
 			if oggetto.get("tipo") == "prendi":
 				var item_id = oggetto.get("item")
 				if item_id:
 					var item_key = item_id.replace(".png", "")
-					# Controlla se l'oggetto è nell'inventario o se è stato usato
 					if GameState.inventory_item == item_key or GameState.used_items.has(item_key):
 						continue
 			
@@ -276,16 +253,17 @@ func load_room(room_key: String) -> void:
 	
 	current_room.initialize(room_data, actual_key)
 	
-	# Gestione help button
 	if room_data.has("help"):
 		current_help_image = room_data["help"]
-		help_button.call_deferred("set", "visible", true)
+		help_button.visible = true
 	else:
 		current_help_image = ""
-		help_button.call_deferred("set", "visible", false)
+		help_button.visible = false
 	
 	sparkle_target_index = 0
 
+	if room_data.has("suono"):
+			_play_named_sound(room_data["suono"])
 
 func handle_win_room() -> void:
 	var bonus_collected = GameState.collected_bonuses.size()
@@ -305,12 +283,11 @@ func handle_object_interaction(obj: Node) -> void:
 			pick_up_item(obj.item_name, obj.global_position, obj)
 		
 		"metti":
-			# Modifica: controlla se l'oggetto nell'inventario è in una lista di opzioni
 			var accepted_items = obj.item_name.split(",")
 			var item_found = false
 			
 			for item in accepted_items:
-				if GameState.inventory_item == item.strip_edges():  # strip_edges rimuove spazi
+				if GameState.inventory_item == item.strip_edges():
 					item_found = true
 					break
 			
@@ -323,6 +300,7 @@ func handle_object_interaction(obj: Node) -> void:
 		"bonus":
 			collect_bonus(obj.item_name, obj)
 
+
 func pick_up_item(item_key: String, start_pos: Vector2, obj: Node) -> void:
 	if GameState.inventory_item != "":
 		clear_inventory()
@@ -331,7 +309,6 @@ func pick_up_item(item_key: String, start_pos: Vector2, obj: Node) -> void:
 	GameState.inventory_changed.emit(item_key)
 	
 	obj.queue_free()
-	
 	create_inventory_item(item_key, start_pos)
 	
 	take_player.pitch_scale = randf_range(0.95, 1.05)
@@ -355,9 +332,7 @@ func _on_item_delivered(item_key: String, target_room: String) -> void:
 	if current_room:
 		GameState.replaced_rooms[current_room.room_key] = target_room
 	
-	# Aggiungi l'oggetto alla lista degli oggetti usati
 	GameState.mark_item_as_used(item_key)
-	
 	clear_inventory()
 	
 	done_player.pitch_scale = randf_range(0.95, 1.05)
@@ -457,3 +432,12 @@ func _play_click_woosh_sounds() -> void:
 	click_player.play()
 	woosh_player.pitch_scale = randf_range(0.95, 1.05)
 	woosh_player.play()
+
+func _play_named_sound(sound_name: String) -> void:
+	match sound_name:
+		"success":
+			success_player.pitch_scale = randf_range(0.95, 1.05)
+			success_player.play()
+		"bonus":
+			bonus_player.pitch_scale = randf_range(0.95, 1.05)
+			bonus_player.play()

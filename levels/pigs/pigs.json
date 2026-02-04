@@ -58,7 +58,8 @@
                     "item": "zappa",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "zappa"
         },
         "003": {
             "image": "pigs103.png",
@@ -141,7 +142,8 @@
                     "item": "coin1,coin2,coin3",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "coin2"
         },
         "002b": {
             "image": "pigs102b.png",
@@ -261,7 +263,8 @@
                     "item": "knob",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "knob"
         },
         "008": {
             "image": "pigs108.png",
@@ -313,7 +316,8 @@
                     "item": "hat",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "pigiama"
         },
         "007b": {
             "image": "pigs107b.png",
@@ -492,7 +496,8 @@
                     "item": "pigiama",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "pigiama"
         },
         "008c": {
             "image": "pigs108c.png",
@@ -534,7 +539,8 @@
                     "item": "hat",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "hat"
         },
         "008e": {
             "image": "pigs108e.png",
@@ -576,7 +582,8 @@
                     "item": "blanket",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "blanket"
         },
         "008f": {
             "image": "pigs108f.png",
@@ -641,7 +648,8 @@
                     "item": "lens",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "lens"
         },
         "008h": {
             "image": "pigs108h.png",
@@ -788,7 +796,8 @@
                     "item": "banana,cake,turnip,can",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "feed"
         },
         "010b": {
             "image": "pigs110b.png",
@@ -812,7 +821,8 @@
                     "item": "banana,cake,turnip,can",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "feed"
         },
         "009b": {
             "image": "pigs109b.png",
@@ -836,7 +846,8 @@
                     "item": "opener",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "opener"
         },
         "009c": {
             "image": "pigs109c.png",
@@ -978,7 +989,8 @@
                     "item": "sponge",
                     "icona": "sponge.png"
                 }
-            ]
+            ],
+            "help": "bucket2"
         },
         "012b": {
             "image": "pigs112b.png",
@@ -1020,7 +1032,8 @@
                     "item": "sponge",
                     "icona": "sponge.png"
                 }
-            ]
+            ],
+            "help": "bucket2"
         },
         "012c": {
             "image": "pigs112c.png",
@@ -1053,7 +1066,8 @@
                     "item": "sponge",
                     "icona": "sponge.png"
                 }
-            ]
+            ],
+            "help": "soap"
         },
         "012d": {
             "image": "pigs112d.png",
@@ -1086,7 +1100,8 @@
                     "item": "sponge",
                     "icona": "sponge.png"
                 }
-            ]
+            ],
+            "help": "sponge"
         },
         "012e": {
             "image": "pigs112e.png",
@@ -1110,7 +1125,8 @@
                     "item": "towel",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "towel"
         },
         "012f": {
             "image": "pigs112f.png",
@@ -1134,7 +1150,8 @@
                     "item": "plunger",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "plunger"
         },
         "012g": {
             "image": "pigs112g.png",
@@ -1181,7 +1198,8 @@
                     "item": "banana,cake,turnip,can",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "feed"
         },
         "010d": {
             "image": "pigs110d.png",
@@ -1205,7 +1223,8 @@
                     "item": "banana,cake,turnip,can",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "feed"
         },
         "010e": {
             "image": "pigs110e.png",
@@ -1316,7 +1335,8 @@
                     "item": "coin1,coin2,coin3",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "coin2"
         },
         "004d": {
             "image": "pigs104d.png",
@@ -1358,7 +1378,8 @@
                     "item": "coin1,coin2,coin3",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "help": "coin2"
         },
         "004e": {
             "image": "pigs104e.png",
@@ -1427,7 +1448,8 @@
                     "target": "win",
                     "icona": "vuoto.png"
                 }
-            ]
+            ],
+            "suono": "success"
         }
     },
     "bg-color": "#79c9c5"

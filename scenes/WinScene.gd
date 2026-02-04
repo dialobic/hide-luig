@@ -84,8 +84,3 @@ func _on_continue_pressed() -> void:
 	# forziamo il caricamento dei progressi
 	GameState.load_progress()
 	get_tree().change_scene_to_file("res://scenes/LevelSelectScene.tscn")
-
-# Opzionale: gestisci la visibilità della label bonus
-func _process(_delta: float) -> void:
-	# Puoi aggiungere effetti visivi qui se vuoi
-	pass

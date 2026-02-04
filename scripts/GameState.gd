@@ -13,7 +13,7 @@ var used_items = {}
 
 # === CONFIG ===
 var color_bg : Color = Color("ffcc99ff")
-var color_fg : Color = Color("ffa35cff")
+var color_fg : Color = Color("ffcc00ff")
 var win_bonus_count: int = 5
 
 # === UI POSITIONS ===
@@ -29,7 +29,6 @@ signal bonus_collected(bonus_id)
 
 func _ready() -> void:
 	load_progress()
-	#print("Progress loaded on startup: ", level_progress)
 
 func mark_item_as_used(item_key: String) -> void:
 	used_items[item_key] = true
@@ -46,20 +45,12 @@ func set_level_config(config: Dictionary) -> void:
 		win_bonus_count = config.win_bonus_count
 
 func save_level_progress(level_name: String, bonus_collected: int) -> void:
-	# Salva i progressi per questo livello
-	print("=== SALVATAGGIO PROGRESSI ===")
-	print("Livello: ", level_name)
-	print("Bonus raccolti: ", bonus_collected)
-	
+	# Salva i progressi per questo livello	
 	level_progress[level_name] = bonus_collected
 	save_to_file()
-	
-	print("Dopo salvataggio: ", level_progress)
-	print("========================")
 
 func get_level_progress(level_name: String) -> int:
 	var progress = level_progress.get(level_name, 0)
-	print("GameState - Level: ", level_name, " -> ", progress, " bonuses")
 	return progress
 
 func load_progress() -> void:
@@ -72,7 +63,6 @@ func load_progress() -> void:
 			var data = file.get_var()
 			if typeof(data) == TYPE_DICTIONARY:
 				level_progress = data
-				#print("Loaded progress from file: ", level_progress)
 			else:
 				print("Invalid save data format")
 			file.close()
@@ -86,7 +76,6 @@ func save_to_file() -> void:
 	if file:
 		file.store_var(level_progress)
 		file.close()
-		#print("Progress saved to file")
 
 func get_all_level_progress() -> Dictionary:
 	# Restituisce tutti i progressi
@@ -96,4 +85,3 @@ func clear_all_progress() -> void:
 	# Funzione di debug: cancella tutti i progressi
 	level_progress.clear()
 	save_to_file()
-	#print("All progress cleared")

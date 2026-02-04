@@ -93,9 +93,9 @@ texture = ExtResource("2_m1pp7")
 [node name="Button" type="Button" parent="." unique_id=309802613]
 layout_mode = 0
 offset_left = 470.0
-offset_top = 252.0
+offset_top = 279.0
 offset_right = 683.0
-offset_bottom = 324.0
+offset_bottom = 351.0
 theme = ExtResource("1_10y3o")
 theme_override_font_sizes/font_size = 32
 text = "Little Pigs"
@@ -128,7 +128,7 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("13_36bka")
 color_to_bg = Color(1, 0.8, 0.6, 1)
-color_to_fg = Color(0.45634377, 0.9887654, 0.9006372, 1)
+color_to_fg = Color(0.6775208, 0.9601118, 0.77749074, 1)
 
 [node name="PaletteButton2" type="Button" parent="VBoxContainer" unique_id=96274135]
 layout_mode = 2
@@ -138,7 +138,8 @@ flat = true
 icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("13_36bka")
-color_to_bg = Color(0.5538167, 0.79853845, 0.4924801, 1)
+color_to_bg = Color(0.68890065, 0.79374236, 0.55951846, 1)
+color_to_fg = Color(1, 0.66074777, 0.48587185, 1)
 
 [node name="PaletteButton3" type="Button" parent="VBoxContainer" unique_id=1867729738]
 layout_mode = 2
@@ -148,8 +149,8 @@ flat = true
 icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("13_36bka")
-color_to_bg = Color(0.4, 0.8, 0.8, 1)
-color_to_fg = Color(1, 0.8, 0, 1)
+color_to_bg = Color(0.6784314, 0.8862745, 0.80784315, 1)
+color_to_fg = Color(0.941003, 0.7981164, 0.73394287, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=337914592]
 
